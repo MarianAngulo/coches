@@ -21,7 +21,7 @@ public class Registro extends JFrame {
 
 		
 		JTextField HuecoNombre = new JTextField();
-		JTextField HuecoContraseña = new JTextField();
+		JTextField HuecoContrasena = new JTextField();
 		JLabel Nombre = new JLabel("Usuario");
 		JLabel Password = new JLabel("Password");
 		JLabel Texto = new JLabel("Registro");
@@ -30,7 +30,7 @@ public class Registro extends JFrame {
 		Central.add(Nombre);
 		Central.add(HuecoNombre);
 		Central.add(Password);
-		Central.add(HuecoContraseña);
+		Central.add(HuecoContrasena);
 		Central.add(Entrar);
 		
 		add(Central);

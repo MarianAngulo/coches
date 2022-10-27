@@ -6,7 +6,6 @@ public class Usuario {
 	private float dinero;
 	
 	public Usuario(String nombre, String contrasena, boolean admin, float dinero) {
-		super();
 		this.nombre = nombre;
 		this.contrasena = contrasena;
 		this.admin = admin;
