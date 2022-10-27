@@ -1,4 +1,4 @@
 
-public class TipoRepuesto {
-
+public enum TipoRepuesto {
+	MOTOR,TRANSMISION, NEUMATICO, TUBO_DE_ESCAPE,CAJA_DE_CAMBIOS
 }
