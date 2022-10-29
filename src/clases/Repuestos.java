@@ -1,5 +1,9 @@
+package clases;
+
+
 
 public class Repuestos {
+	private TipoRepuesto tipo;
 	private int Id;
 	private float compra;
 	private float venta;
@@ -11,6 +15,14 @@ public class Repuestos {
 		this.venta = venta;
 	}
 
+	public TipoRepuesto getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoRepuesto tipo) {
+		this.tipo = tipo;
+	}
+	
 	public int getId() {
 		return Id;
 	}

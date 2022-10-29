@@ -1,3 +1,4 @@
+package clases;
 
 public class Vehiculo {
 	private TipoVehiculo tipo;
