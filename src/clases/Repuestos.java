@@ -9,8 +9,9 @@ public class Repuestos {
 	private float venta;
 	
 	
-	public Repuestos(int Id, float compra, float venta) {
+	public Repuestos(int Id, TipoRepuesto tipo,  float compra, float venta) {
 		this.Id = Id;
+		this.tipo = tipo;
 		this.compra = compra;
 		this.venta = venta;
 	}
