@@ -3,10 +3,10 @@ package clases;
 public class Usuario {
 	private String nombre;
 	private String contrasena;
-	private boolean admin;
+	private int admin;
 	private float dinero;
 	
-	public Usuario(String nombre, String contrasena, boolean admin, float dinero) {
+	public Usuario(String nombre, String contrasena, int admin, float dinero) {
 		this.nombre = nombre;
 		this.contrasena = contrasena;
 		this.admin = admin;
@@ -29,11 +29,11 @@ public class Usuario {
 		this.contrasena = contrasena;
 	}
 	
-	public boolean getAdmin() {
+	public int getAdmin() {
 		return admin;
 	}
 	
-	public void setAdmin(boolean admin) {
+	public void setAdmin(int admin) {
 		this.admin = admin;
 	}
 	

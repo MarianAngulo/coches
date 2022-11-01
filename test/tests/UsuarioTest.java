@@ -13,7 +13,7 @@ public class UsuarioTest {
 	private Usuario usuario;
 	private String nombre="nombre";
 	private String contrasena="contraseña";
-	private boolean admin=false;
+	private int admin=0;
 	private float dinero=0.0f;
 	
 	@Before
@@ -69,7 +69,7 @@ public class UsuarioTest {
 
 	@Test
 	public void testSetAdmin() {
-		boolean adm = false;
+		int adm = 0;
 		usuario.setAdmin(adm);
 		
 		assertEquals(admin, usuario.getAdmin());

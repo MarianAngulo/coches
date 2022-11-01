@@ -20,6 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import clases.Usuario;
+
 public class VentanaRegistro extends JFrame {
 	private static final long serialVersionUID = -6454706567318509276L;
 	private JPanel panelcent;
@@ -72,20 +74,22 @@ public class VentanaRegistro extends JFrame {
 			@SuppressWarnings("unlikely-arg-type")
 			@Override
 			public void actionPerformed(ActionEvent hg) {
-				//ArrayList<Usuario> lista = cc.sacarUsuarios("Usuario.db"); IMPLEMENTAR
+				ArrayList<Usuario> lista = cc.sacarUsuarios("Usuario.db");
 				if(textoNombre.getText().isBlank() || textoContrasena.getText().isBlank()) {
 					JOptionPane.showMessageDialog(null, "Por favor ponga el nombre de usuario que desea crear y/o su contraseÃ±a", "Crear usuario nuevo - Error", JOptionPane.INFORMATION_MESSAGE);
-				}//UN ELSE IF QUE REVISE SI EL USUARIO EXISTE
+				}else if (lista.contains(textoNombre.getText())){
+					JOptionPane.showMessageDialog(null, "Este usuario ya existe", "Crear usuario nuevo - Error", JOptionPane.INFORMATION_MESSAGE);					
+				}
 				else {
-					int opcion = JOptionPane.showConfirmDialog(null, "Â¿Estas seguro de que quieres crear un usuario con nombre: "+textoNombre.getText()+ " y contraseÃ±a: "+textoContrasena.getText()+"?", "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					int opcion = JOptionPane.showConfirmDialog(null, "¿Estas seguro de que quieres crear un usuario con nombre: "+textoNombre.getText()+ " y contraseña: "+textoContrasena.getText()+"?", "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 					if(opcion==0) {
-						//cc.guardarDBUsuario("Usuario.db",1, 1, 0, textoNombre.getText(), textoContrasena.getText());
+						cc.guardarDBUsuario("Usuario.db",textoNombre.getText(), textoContrasena.getText(), 0, 0);
 					}if(opcion==1) {
 						
 					}
-				
-				
+							
 			}
+				
 			}
 		});
 		
