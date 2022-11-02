@@ -72,10 +72,10 @@ public class VentaTest {
 		assertEquals(fecha, venta.getFecha());
 	}
 	
-	/**@Test
+	@Test
 	public void testSetFecha() {
-		Date fecha= new SimpleDateFormat("MM/dd/YY");
+		Date current = new Date();
 		assertEquals(fecha, venta.getFecha());
-	}**/
+	}
 	
 }
