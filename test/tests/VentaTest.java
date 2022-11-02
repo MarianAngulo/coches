@@ -2,7 +2,6 @@ package tests;
 
 import static org.junit.Assert.*;
 
-
 import java.util.Date;
 
 import org.junit.After;
@@ -18,7 +17,7 @@ public class VentaTest {
 	private Usuario usuario;
 	private String producto = "producto";
 	private float precio = 0.0f;
-	private Date fecha;
+	private Date fecha = new Date();
 
 	@Before
 	public void setUp() throws Exception {
@@ -75,7 +74,9 @@ public class VentaTest {
 	@Test
 	public void testSetFecha() {
 		Date current = new Date();
-		assertEquals(fecha, venta.getFecha());
+		
+		venta.setFecha(fecha);
+		assertEquals(current, venta.getFecha());
 	}
 	
 }
