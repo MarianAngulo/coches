@@ -6,6 +6,7 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -21,8 +22,11 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import clases.Usuario;
+import ventanas.VentanaPrincipal;
 
 public class VentanaRegistro extends JFrame {
+	private static VentanaRegistro vent = new VentanaRegistro();
+	
 	private static final long serialVersionUID = -6454706567318509276L;
 	private JPanel panelcent;
 	private JPanel panelcent2;
@@ -30,9 +34,10 @@ public class VentanaRegistro extends JFrame {
 	private JLabel huecoNombre;
 	private JLabel huecoContrasena;
 	private JTextField textoNombre;
-	private JTextField textoContrasena;
-	private JButton aceptar;
-	private JButton cancelar;
+	private JPasswordField textoContrasena;
+	private JButton registrase;
+	private JButton iniciarSesion;
+	private JButton salir;
 
 	public VentanaRegistro() {
 		ClaseContenedora cc = new ClaseContenedora();
@@ -50,10 +55,10 @@ public class VentanaRegistro extends JFrame {
 		huecoNombre = new JLabel("Nombre de Usuario: ");
 		huecoContrasena = new JLabel("Contraseña: ");
 		textoNombre = new JTextField();
-		textoContrasena = new JTextField();
+		textoContrasena = new JPasswordField();
 		
-		aceptar = new JButton("Crear nuevo usuario");
-		cancelar = new JButton("Cancelar");
+		registrase = new JButton("Crear nuevo usuario");
+		iniciarSesion = new JButton("Iniciar Sesion");
 		
 		panelcent2.add(huecoNombre);
 		panelcent2.add(textoNombre);
@@ -61,15 +66,39 @@ public class VentanaRegistro extends JFrame {
 		panelcent2.add(textoContrasena);
 		panelcent2.add(new JLabel());
 		panelcent2.add(new JLabel());
-		panelcent2.add(new JLabel());
-		panelcent2.add(new JLabel());
-		panelcent2.add(cancelar);
-		panelcent2.add(aceptar);
+		panelcent2.add(iniciarSesion);
+		panelcent2.add(registrase);
 		panelcent.add(nuFoto);
 		panelcent.add(panelcent2);
+		salir = new JButton("Salir");
+		panelcent2.add(salir);
+		
+	
+		salir.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		
+		iniciarSesion.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				vent.setVisible( false );
+				VentanaPrincipal vp = new VentanaPrincipal();
+				vp.setSize(700,700);
+				vp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				vp.setVisible(true);
+				dispose();
+				
+				
+			}
+		});
 		
 
-		aceptar.addActionListener(new ActionListener() {
+		registrase.addActionListener(new ActionListener() {
 			
 			@SuppressWarnings("unlikely-arg-type")
 			@Override
@@ -92,21 +121,10 @@ public class VentanaRegistro extends JFrame {
 				
 			}
 		});
-		
-	
-		cancelar.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//Crear ventana de inicio de sesion normal
-				
-			}
-		});
-		add(panelcent);
+		getContentPane().add(panelcent);
 	}
 	
 	public static void main(String args[]) {
-		VentanaRegistro vent = new VentanaRegistro();
 		vent.setTitle("Ventana para anyadir nuevo usuario");
 		vent.setSize(1000, 500);
 		vent.setLocation(550, 300);
