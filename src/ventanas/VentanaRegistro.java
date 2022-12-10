@@ -110,7 +110,7 @@ public class VentanaRegistro extends JFrame {
 					JOptionPane.showMessageDialog(null, "Este usuario ya existe", "Crear usuario nuevo - Error", JOptionPane.INFORMATION_MESSAGE);					
 				}
 				else {
-					int opcion = JOptionPane.showConfirmDialog(null, "¿Estas seguro de que quieres crear un usuario con nombre: "+textoNombre.getText()+ " y contraseña: "+textoContrasena.getText()+"?", "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					int opcion = JOptionPane.showConfirmDialog(null, "ï¿½Estas seguro de que quieres crear un usuario con nombre: "+textoNombre.getText()+ " y contraseï¿½a: "+textoContrasena.getText()+"?", "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 					if(opcion==0) {
 						cc.guardarDBUsuario("Usuario.db",textoNombre.getText(), textoContrasena.getText(), 0, 0);
 					}if(opcion==1) {

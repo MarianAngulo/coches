@@ -1,14 +1,19 @@
 package ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JToolBar;
 import javax.swing.*;
 
+import ventanas.VentanaRepuestos;
+
 
 public class VentanaPrincipal extends JFrame{
+	private static VentanaPrincipal vent = new VentanaPrincipal();
 
 	private JPanel panelSup;
 	private JToolBar barra;
@@ -30,6 +35,24 @@ public class VentanaPrincipal extends JFrame{
 		
 		panelSup.add(barra, BorderLayout.NORTH);
 		add(panelSup);
+		
+		bRespuestos.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				vent.setVisible( false );
+				VentanaRepuestos ventRes = new VentanaRepuestos();
+				ventRes.setTitle("repuestos");
+				ventRes.setSize(700, 700);
+				ventRes.setLocation(0, 0);
+				ventRes.setVisible( true );
+				ventRes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				ventRes.setResizable(false);
+				dispose();
+				
+				
+			}
+		});
 	}
 	
 	public static void inicio() {
@@ -40,4 +63,5 @@ public class VentanaPrincipal extends JFrame{
 		vent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		vent.setResizable(false);
 	}
+	
 }
