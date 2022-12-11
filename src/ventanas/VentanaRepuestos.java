@@ -51,9 +51,10 @@ public class VentanaRepuestos extends JFrame {
 		JButton volver = new JButton("Volver");
 		JButton comprar = new JButton("Comprar");
 		JButton vender = new JButton("Vender");
-		barra.add(volver);
-		barraAbajo.add(comprar);
-		barraAbajo.add(vender);
+		barra.add(comprar);
+		barra.add(vender);
+		barraAbajo.add(volver);
+	
 		
 		panelSup.add(barra, BorderLayout.NORTH);
 		panelSouth.add(barraAbajo, BorderLayout.NORTH);
@@ -70,6 +71,7 @@ public class VentanaRepuestos extends JFrame {
 				VentanaPrincipal vp = new VentanaPrincipal();
 				vp.setSize(700,700);
 				vp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				vp.setLocationRelativeTo(null);
 				vp.setVisible(true);
 				dispose();
 				

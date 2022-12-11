@@ -66,6 +66,7 @@ public class VentanaAjustes extends JFrame {
 				VentanaPrincipal vp = new VentanaPrincipal();
 				vp.setSize(700,700);
 				vp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				vp.setLocationRelativeTo(null);
 				vp.setVisible(true);
 				dispose();
 			}

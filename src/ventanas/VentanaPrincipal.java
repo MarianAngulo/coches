@@ -27,8 +27,23 @@ public class VentanaPrincipal extends JFrame{
 		JButton bAjustes = new JButton("Ajustes");
 		barra.add(bAjustes);
 		
-		JButton bCoches = new JButton("Coches");
-		barra.add(bCoches);
+		JButton bVehi = new JButton("Vehiculos");
+		barra.add(bVehi);
+		
+		bVehi.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaVehiculos ventVe = new VentanaVehiculos();
+				ventVe.setLocationRelativeTo(null);
+				ventVe.setVisible( true );
+				ventVe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				ventVe.setResizable(false);
+				dispose();	
+			}
+			
+			
+		});
 		
 		JButton bRespuestos = new JButton("Repuestos");
 		barra.add(bRespuestos);
@@ -40,11 +55,10 @@ public class VentanaPrincipal extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				vent.setVisible( false );
 				VentanaRepuestos ventRes = new VentanaRepuestos();
 				ventRes.setTitle("Repuestos");
 				ventRes.setSize(700, 700);
-				ventRes.setLocation(0, 0);
+				ventRes.setLocationRelativeTo(null);
 				ventRes.setVisible( true );
 				ventRes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				ventRes.setResizable(false);
@@ -58,11 +72,10 @@ public class VentanaPrincipal extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				vent.setVisible( false );
 				VentanaAjustes ventConfig = new VentanaAjustes();
 				ventConfig.setTitle("Configuracion");
 				ventConfig.setSize(500, 600);
-				ventConfig.setLocation(0, 0);
+				ventConfig.setLocationRelativeTo(null);
 				ventConfig.setVisible( true );
 				ventConfig.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				ventConfig.setResizable(false);
