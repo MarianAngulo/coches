@@ -111,11 +111,11 @@ public class VentanaCuenta extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				//FALTA FUNCIONALIDAD BD
 				//te devuelve a la ventana registro
-				int result = JOptionPane.showConfirmDialog(btnContrasena, "¿Seguro que quieres cambiar tu contrasena?");
+				int result = JOptionPane.showConfirmDialog(null, "¿Seguro que quieres cambiar tu contrasena?");
 
 		        if (result == 0) {
 		        	System.out.println("You pressed Yes");
-		        	String newContrasena = JOptionPane.showInputDialog(btnContrasena, "Introduzca su nueva contrasena:");
+		        	String newContrasena = JOptionPane.showInputDialog(null, "Introduzca su nueva contrasena:");
 		        	//funcionalidad BD
 		        	System.out.println("Su nueva contrasena es: "+newContrasena);
 		        	textContrasena.setText(newContrasena);

@@ -53,7 +53,7 @@ public class VentanaRegistro extends JFrame {
 		    System.out.println(ex);
 		}		
 		huecoNombre = new JLabel("Nombre de Usuario: ");
-		huecoContrasena = new JLabel("Contraseña: ");
+		huecoContrasena = new JLabel("Contrasena: ");
 		textoNombre = new JTextField();
 		textoContrasena = new JPasswordField();
 		
@@ -86,13 +86,23 @@ public class VentanaRegistro extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				vent.setVisible( false );
-				VentanaPrincipal vp = new VentanaPrincipal();
-				vp.setSize(700,700);
-				vp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				vp.setVisible(true);
-				dispose();
-				
+				//BD 
+				if(textoNombre.getText().equals("admin") && textoContrasena.getText().equals("admin")) {
+					JOptionPane.showMessageDialog(null, "Has iniciado sesion como administrador");
+					vent.setVisible( false );
+					VentanaAdmin va = new VentanaAdmin();
+					va.setSize(600,600);
+					va.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					va.setVisible(true);
+					dispose();
+				}else {
+					vent.setVisible( false );
+					VentanaPrincipal vp = new VentanaPrincipal();
+					vp.setSize(700,700);
+					vp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					vp.setVisible(true);
+					dispose();
+				}			
 				
 			}
 		});
