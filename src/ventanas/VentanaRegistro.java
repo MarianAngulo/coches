@@ -127,7 +127,6 @@ public class VentanaRegistro extends JFrame {
 	public static void main(String args[]) {
 		vent.setTitle("Ventana para anyadir nuevo usuario");
 		vent.setSize(1000, 500);
-		vent.setLocation(550, 300);
 		vent.setVisible( true );
 		vent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		vent.setResizable(false);

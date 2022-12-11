@@ -24,8 +24,8 @@ public class VentanaPrincipal extends JFrame{
 		
 		barra = new JToolBar();
 		
-		JButton bConfiguracion = new JButton("Configuracion");
-		barra.add(bConfiguracion);
+		JButton bAjustes = new JButton("Ajustes");
+		barra.add(bAjustes);
 		
 		JButton bCoches = new JButton("Coches");
 		barra.add(bCoches);
@@ -42,7 +42,7 @@ public class VentanaPrincipal extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				vent.setVisible( false );
 				VentanaRepuestos ventRes = new VentanaRepuestos();
-				ventRes.setTitle("repuestos");
+				ventRes.setTitle("Repuestos");
 				ventRes.setSize(700, 700);
 				ventRes.setLocation(0, 0);
 				ventRes.setVisible( true );
@@ -52,6 +52,23 @@ public class VentanaPrincipal extends JFrame{
 				
 				
 			}
+		});
+		
+		bAjustes.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				vent.setVisible( false );
+				VentanaAjustes ventConfig = new VentanaAjustes();
+				ventConfig.setTitle("Configuracion");
+				ventConfig.setSize(500, 600);
+				ventConfig.setLocation(0, 0);
+				ventConfig.setVisible( true );
+				ventConfig.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				ventConfig.setResizable(false);
+				dispose();
+			}
+			
 		});
 	}
 	
