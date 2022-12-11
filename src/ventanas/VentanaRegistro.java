@@ -86,8 +86,12 @@ public class VentanaRegistro extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				ArrayList<Usuario> lista = cc.sacarUsuarios("Usuario.db");			
+				if(textoNombre.getText().isBlank() || textoContrasena.getText().isBlank()) {
+					JOptionPane.showMessageDialog(null, "Por favor ingrese sus credenciales", "Iniciar sesion - Error", JOptionPane.INFORMATION_MESSAGE);
+				}
 				//BD 
-				if(textoNombre.getText().equals("admin") && textoContrasena.getText().equals("admin")) {
+				else if(textoNombre.getText().equals("admin") && textoContrasena.getText().equals("admin")) {
 					JOptionPane.showMessageDialog(null, "Has iniciado sesion como administrador");
 					vent.setVisible( false );
 					VentanaAdmin va = new VentanaAdmin();
@@ -95,13 +99,17 @@ public class VentanaRegistro extends JFrame {
 					va.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					va.setVisible(true);
 					dispose();
-				}else {
-					vent.setVisible( false );
-					VentanaPrincipal vp = new VentanaPrincipal();
-					vp.setSize(700,700);
-					vp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-					vp.setVisible(true);
-					dispose();
+				}else{
+					for (Usuario u: lista) {
+						if (u.getNombre().equals(textoNombre.getText()) && u.getContrasena().equals(textoContrasena.getText())) {
+							vent.setVisible( false );
+							VentanaPrincipal vp = new VentanaPrincipal();
+							vp.setSize(700,700);
+							vp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+							vp.setVisible(true);
+							dispose();
+						}
+					}
 				}			
 				
 			}
