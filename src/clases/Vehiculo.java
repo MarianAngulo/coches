@@ -3,11 +3,11 @@ package clases;
 public class Vehiculo {
 	private TipoVehiculo tipo;
 	private String modelo;
-	private String marca;
+	private MarcaVehiculo marca;
 	private int id;
 	private float precio;
 	
-	public Vehiculo(TipoVehiculo tipo, String modelo, String marca, int id, float precio) {
+	public Vehiculo(TipoVehiculo tipo, MarcaVehiculo marca, String modelo,int id, float precio) {
 		this.tipo = tipo;
 		this.modelo = modelo;
 		this.marca = marca;
@@ -49,14 +49,14 @@ public class Vehiculo {
 
 	@Override
 	public String toString() {
-		return "Vehiculo [tipo=" + tipo + ", modelo=" + modelo + ", marca=" + marca + ", id=" + id + ", precio=" + precio + "]";
+		return "Vehiculo [tipo=" + tipo + ", marca=" + marca + ", modelo=" + modelo + ", id=" + id + ", precio=" + precio + "]";
 	}
 
-	public String getMarca() {
+	public MarcaVehiculo getMarca() {
 		return marca;
 	}
 
-	public void setMarca(String marca) {
+	public void setMarca(MarcaVehiculo marca) {
 		this.marca = marca;
 	}
 }

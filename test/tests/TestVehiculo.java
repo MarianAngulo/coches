@@ -5,7 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import clases.TipoRepuesto;
+import clases.MarcaVehiculo;
 import clases.TipoVehiculo;
 import clases.Vehiculo;
 
@@ -13,13 +13,14 @@ public class TestVehiculo {
 	
 	private Vehiculo vehiculo;
 	private TipoVehiculo tipo = TipoVehiculo.CICLOMOTOR;
-	private String modelo = "Lamborghini";
+	private MarcaVehiculo marca = MarcaVehiculo.BMW;
+	private String modelo = "M2";
 	private int id = 23;
 	private float precio = 2000.50f;
 	
 	@Before
 	public void setUp() throws Exception {
-		vehiculo = new Vehiculo(tipo, modelo, id, precio);
+		vehiculo = new Vehiculo(tipo, marca, modelo, id, precio);
 	}
 
 	@After
@@ -32,6 +33,7 @@ public class TestVehiculo {
 		assertNotNull(vehiculo);
 		assertEquals(id, vehiculo.getId());
 		assertEquals(tipo, TipoVehiculo.valueOf("CICLOMOTOR"));
+		assertEquals(marca, MarcaVehiculo.valueOf("BMW"));
 		assertEquals(modelo, vehiculo.getModelo());
 		assertEquals(precio, vehiculo.getPrecio(),0.0f);
 	}
@@ -46,6 +48,18 @@ public class TestVehiculo {
 		TipoVehiculo tip = TipoVehiculo.MOTOCICLETA;
 		vehiculo.setTipo(tip);
 		assertEquals(tip, TipoVehiculo.valueOf("MOTOCICLETA"));
+	}
+	
+	@Test
+	public void testGetMarca() {
+		assertEquals(tipo, MarcaVehiculo.valueOf("BMW"));
+	}
+
+	@Test
+	public void testSetMarca() {
+		MarcaVehiculo mar = MarcaVehiculo.MERCEDES;
+		vehiculo.setMarca(mar);
+		assertEquals(mar, MarcaVehiculo.valueOf("MERCEDES"));
 	}
 
 	@Test
@@ -88,7 +102,7 @@ public class TestVehiculo {
 
 	@Test
 	public void testToString() {
-		String esperado = "Vehiculo [tipo=" + tipo + ", modelo=" + modelo + ", id=" + id + ", precio=" + precio + "]";
+		String esperado = "Vehiculo [tipo=" + tipo + ", marca=" + marca + ", modelo=" + modelo + ", id=" + id + ", precio=" + precio + "]";
 		assertEquals(esperado,vehiculo.toString());
 	}
 
