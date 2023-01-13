@@ -5,6 +5,9 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,13 +15,17 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JToolBar;
+import javax.swing.table.DefaultTableModel;
 
 import clases.Usuario;
 
 public class VentanaUsuarios extends JFrame {
 	private JToolBar barra;
 	private ArrayList<Usuario> usuarios = new ArrayList<>();
+	private JTable tDatos;
+	private DefaultTableModel mDatos;
 	
 	public VentanaUsuarios() {
 		barra = new JToolBar();
@@ -47,12 +54,15 @@ public class VentanaUsuarios extends JFrame {
 
 		JList listaUsuarios = new JList();
 		listaUsuarios.setBounds(50, 54, 487, 234);
-		panelCentral.add(listaUsuarios);
+		//panelCentral.add(listaUsuarios);
 		
 		/*
 		JScrollPane scroll = new JScrollPane(listaUsuarios);
 		panelCentral.add(scroll);
 		*/
+		
+		tDatos = new JTable();
+		getContentPane().add( new JScrollPane(tDatos), BorderLayout.CENTER );
 		
 		btnVolver.addActionListener(new ActionListener() {
 			
@@ -92,5 +102,16 @@ public class VentanaUsuarios extends JFrame {
 				repaint();
 			}
 		});
+	}
+	
+	private void verUsuarios() {
+		Vector<String> cabeceras = new Vector<String>( Arrays.asList( "Nombre", "Contraseña", "Admin" ) );
+		mDatos = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceras);
+		
+		//ArrayList<Usuario> usuarios = BaseDatos.getCompras( listaUsuarios ); //implementacion bd
+		for (Usuario u : usuarios) {
+			mDatos.addRow( new Object[] { u.getNombre(), u.getContrasena(), u.getAdmin()} );
+		}
+		tDatos.setModel( mDatos );
 	}
 }
