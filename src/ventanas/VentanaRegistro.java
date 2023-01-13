@@ -26,7 +26,7 @@ import ventanas.VentanaPrincipal;
 
 public class VentanaRegistro extends JFrame {
 	private static VentanaRegistro vent = new VentanaRegistro();
-	
+
 	private static final long serialVersionUID = -6454706567318509276L;
 	private JPanel panelcent;
 	private JPanel panelcent2;
@@ -42,24 +42,24 @@ public class VentanaRegistro extends JFrame {
 	public VentanaRegistro() {
 		ClaseContenedora cc = new ClaseContenedora();
 		panelcent = new JPanel();
-		panelcent.setLayout(new GridLayout(1,2));
+		panelcent.setLayout(new GridLayout(1, 2));
 		panelcent2 = new JPanel();
-		panelcent2.setLayout(new GridLayout(5,2));
+		panelcent2.setLayout(new GridLayout(5, 2));
 		nuFoto = new JLabel();
 		try {
-		    Image img = ImageIO.read(getClass().getResource("fotoempre.jpg"));
-		    nuFoto.setIcon(new ImageIcon(img));
-		  } catch (Exception ex) {
-		    System.out.println(ex);
-		}		
+			Image img = ImageIO.read(getClass().getResource("fotoempre.jpg"));
+			nuFoto.setIcon(new ImageIcon(img));
+		} catch (Exception ex) {
+			System.out.println(ex);
+		}
 		huecoNombre = new JLabel("Nombre de Usuario: ");
 		huecoContrasena = new JLabel("Contrasena: ");
 		textoNombre = new JTextField();
 		textoContrasena = new JPasswordField();
-		
+
 		registrase = new JButton("Crear nuevo usuario");
 		iniciarSesion = new JButton("Iniciar Sesion");
-		
+
 		panelcent2.add(huecoNombre);
 		panelcent2.add(textoNombre);
 		panelcent2.add(huecoContrasena);
@@ -72,8 +72,7 @@ public class VentanaRegistro extends JFrame {
 		panelcent.add(panelcent2);
 		salir = new JButton("Salir");
 		panelcent2.add(salir);
-		
-	
+
 		salir.addActionListener(new ActionListener() {
 
 			@Override
@@ -81,71 +80,91 @@ public class VentanaRegistro extends JFrame {
 				System.exit(0);
 			}
 		});
-		
+
 		iniciarSesion.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Usuario> lista = cc.sacarUsuarios("Usuario.db");			
-				if(textoNombre.getText().isBlank() || textoContrasena.getText().isBlank()) {
-					JOptionPane.showMessageDialog(null, "Por favor ingrese sus credenciales", "Iniciar sesion - Error", JOptionPane.INFORMATION_MESSAGE);
+				ArrayList<Usuario> lista = cc.sacarUsuarios("Usuario.db");
+				if (textoNombre.getText().isBlank() || textoContrasena.getText().isBlank()) {
+					JOptionPane.showMessageDialog(null, "Por favor ingrese sus credenciales", "Iniciar sesion - Error",
+							JOptionPane.INFORMATION_MESSAGE);
 				}
-				//BD 
-				else if(textoNombre.getText().equals("admin") && textoContrasena.getText().equals("admin")) {
+				// BD
+				else if (textoNombre.getText().equals("admin") && textoContrasena.getText().equals("admin")) {
 					JOptionPane.showMessageDialog(null, "Has iniciado sesion como administrador");
-					vent.setVisible( false );
+					vent.setVisible(false);
 					VentanaAdmin va = new VentanaAdmin();
-					va.setSize(600,600);
+					va.setSize(600, 600);
+					va.setLocation(550, 150);
 					va.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					va.setVisible(true);
 					dispose();
-				}else{
-					for (Usuario u: lista) {
-						if (u.getNombre().equals(textoNombre.getText()) && u.getContrasena().equals(textoContrasena.getText())) {
-							vent.setVisible( false );
+
+				} else if (textoNombre.getText().equals("usuario") && textoContrasena.getText().equals("usuario")) {
+					JOptionPane.showMessageDialog(null, "Has iniciado sesion como usuario");
+					vent.setVisible(false);
+					VentanaPrincipal vp = new VentanaPrincipal();
+					vp.setSize(600, 600);
+					vp.setLocation(550, 150);
+					vp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					vp.setVisible(true);
+					dispose();
+
+				} else {
+					for (Usuario u : lista) {
+						if (u.getNombre().equals(textoNombre.getText())
+								&& u.getContrasena().equals(textoContrasena.getText())) {
+							vent.setVisible(false);
 							VentanaPrincipal vp = new VentanaPrincipal();
-							vp.setSize(700,700);
+							vp.setSize(700, 700);
 							vp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 							vp.setVisible(true);
 							dispose();
 						}
 					}
-				}			
-				
+				}
+
 			}
 		});
-		
 
 		registrase.addActionListener(new ActionListener() {
-			
+
 			@SuppressWarnings("unlikely-arg-type")
 			@Override
 			public void actionPerformed(ActionEvent hg) {
 				ArrayList<Usuario> lista = cc.sacarUsuarios("Usuario.db");
-				if(textoNombre.getText().isBlank() || textoContrasena.getText().isBlank()) {
-					JOptionPane.showMessageDialog(null, "Por favor ponga el nombre de usuario que desea crear y/o su contraseña", "Crear usuario nuevo - Error", JOptionPane.INFORMATION_MESSAGE);
-				}else if (lista.contains(textoNombre.getText())){
-					JOptionPane.showMessageDialog(null, "Este usuario ya existe", "Crear usuario nuevo - Error", JOptionPane.INFORMATION_MESSAGE);					
-				}
-				else {
-					int opcion = JOptionPane.showConfirmDialog(null, "�Estas seguro de que quieres crear un usuario con nombre: "+textoNombre.getText()+ " y contrase�a: "+textoContrasena.getText()+"?", "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-					if(opcion==0) {
-						cc.guardarDBUsuario("Usuario.db",textoNombre.getText(), textoContrasena.getText(), 0, 0);
-					}if(opcion==1) {
-						
+				if (textoNombre.getText().isBlank() || textoContrasena.getText().isBlank()) {
+					JOptionPane.showMessageDialog(null,
+							"Por favor ponga el nombre de usuario que desea crear y/o su contraseña",
+							"Crear usuario nuevo - Error", JOptionPane.INFORMATION_MESSAGE);
+				} else if (lista.contains(textoNombre.getText())) {
+					JOptionPane.showMessageDialog(null, "Este usuario ya existe", "Crear usuario nuevo - Error",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					int opcion = JOptionPane.showConfirmDialog(null,
+							"�Estas seguro de que quieres crear un usuario con nombre: " + textoNombre.getText()
+									+ " y contrase�a: " + textoContrasena.getText() + "?",
+							"Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					if (opcion == 0) {
+						cc.guardarDBUsuario("Usuario.db", textoNombre.getText(), textoContrasena.getText(), 0, 0);
 					}
-							
-			}
-				
+					if (opcion == 1) {
+
+					}
+
+				}
+
 			}
 		});
 		getContentPane().add(panelcent);
 	}
-	
+
 	public static void main(String args[]) {
 		vent.setTitle("Ventana para anyadir nuevo usuario");
 		vent.setSize(1000, 500);
-		vent.setVisible( true );
+		vent.setLocation(550, 150);
+		vent.setVisible(true);
 		vent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		vent.setResizable(false);
 	}

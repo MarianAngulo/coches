@@ -84,7 +84,7 @@ public class VentanaRepuestos extends JFrame {
 	public static void main(String args[]) {
 		ventRes.setTitle("repuestos");
 		ventRes.setSize(700, 700);
-		ventRes.setLocation(550, 300);
+		ventRes.setLocation(550, 150);
 		ventRes.setVisible(true);
 		ventRes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ventRes.setResizable(false);

@@ -39,7 +39,7 @@ public class VentanaCuenta extends JFrame{
 		btnBorrar.setBounds(150, 340, 200, 37);
 		panelCentral.add(btnBorrar);
 		
-		JButton btnContrasena = new JButton("Cambiar contraseña");
+		JButton btnContrasena = new JButton("Cambiar contrasena");
 		btnContrasena.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnContrasena.setBounds(150, 280, 200, 37);
 		panelCentral.add(btnContrasena);
@@ -111,7 +111,7 @@ public class VentanaCuenta extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				//FALTA FUNCIONALIDAD BD
 				//te devuelve a la ventana registro
-				int result = JOptionPane.showConfirmDialog(null, "¿Seguro que quieres cambiar tu contrasena?");
+				int result = JOptionPane.showConfirmDialog(null, "ï¿½Seguro que quieres cambiar tu contrasena?");
 
 		        if (result == 0) {
 		        	System.out.println("You pressed Yes");
