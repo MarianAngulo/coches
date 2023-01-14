@@ -28,6 +28,7 @@ public class VentanaUsuarios extends JFrame {
 	private DefaultTableModel mDatos;
 	
 	public VentanaUsuarios() {
+		ClaseContenedora cc = new ClaseContenedora();
 		barra = new JToolBar();
 		
 		JPanel panelSup = new JPanel();
@@ -86,9 +87,10 @@ public class VentanaUsuarios extends JFrame {
 				if (name.isEmpty() || con.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "No puedes dejar campos vacios.");
 				}
-				//Confirmar que no existe un usuario con ese nombre
-				
-				//Guardarlo en la base de datos
+				//Confirmar que no existe un usuario con ese nombre y guardarlo en la bbdd
+				if (cc.buscarUsuarioPorNombre("Usuario.db", name) == null) {
+					cc.guardarDBUsuario("Usuario", name, con, 0, 0);
+				}
 			}
 		});
 		
@@ -98,6 +100,7 @@ public class VentanaUsuarios extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				usuarios.remove(listaUsuarios.getSelectedIndex());
 				//eliminar de la BD
+				cc.borrarDBUsuario("Usuario.db", usuarios.get(listaUsuarios.getSelectedIndex()).getNombre());
 				
 				repaint();
 			}

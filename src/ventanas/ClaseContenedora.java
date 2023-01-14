@@ -107,5 +107,30 @@ public class ClaseContenedora {
 			}
 		
 	}
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////// FUNCION PARA BUSCAR UN USUARIO POR SU NOMBRE //////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	public Usuario buscarUsuarioPorNombre(String nombredb, String nombre) {
+		String sql = "select * from usuario where nombre = '" + nombre + "'";
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/"+nombredb);
+			Statement stmt = conn.createStatement();
+			logger.log(Level.INFO, "Lanzada consulta a base de datos: " + sql);
+			ResultSet rs = stmt.executeQuery( sql );
+			if (rs.next()) {
+				Usuario usuario = new Usuario(
+					rs.getString("nombre"), rs.getString("contrasena"), rs.getInt("admin"), rs.getInt("dinero") );
+				rs.close();
+				return usuario;
+			} else {
+				rs.close();
+				return null;
+			}
+		} catch (SQLException e) {
+			logger.log( Level.SEVERE, "Error en búsqueda de base de datos: " + sql, e );
+			return null;
+		}
+	}
 }
 
