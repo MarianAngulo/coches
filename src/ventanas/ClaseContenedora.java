@@ -1,5 +1,8 @@
 package ventanas;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -14,12 +17,39 @@ import clases.Usuario;
 public class ClaseContenedora {
 	private static Logger logger = Logger.getLogger("ClaseContenedora");
 	
+	
+	///////////////////////////////////////////////////
+	//////////// Inicializa una bbdd  ///////////
+	///////////////////////////////////////////////////
+	public boolean init(String nombredb) {
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/bd/"+nombredb);
+			Statement stmt = conn.createStatement();
+		    Class.forName("org.sqlite.JDBC");
+		    conn = DriverManager.getConnection("jdbc:sqlite:" + nombredb );
+			logger.log( Level.INFO, "Conectada base de datos " + nombredb );
+			stmt = conn.createStatement();
+			stmt.setQueryTimeout( 10 );
+			stmt.executeUpdate("create table if not exists usuario (nombre string, contrasena string, admin integer, dinero integer)");
+			stmt.executeUpdate("create table if not exists categoria (codigo integer, nombre string, numFotos integer)");
+			stmt.executeUpdate("create table if not exists foto (codigo integer, usuario string, categoria integer, fecha bigint, rutaFoto string)");
+			return true;
+		} catch (ClassNotFoundException | SQLException e) {
+			logger.log( Level.SEVERE, "Error en conexión de base de datos " + nombredb, e );
+			return false;
+		}
+	}
+	
+	
+	
+	
+	
 	///////////////////////////////////////////////////
 	//////////// SACAR USUARIOS DE LA BBDD  ///////////
 	///////////////////////////////////////////////////
 	public ArrayList<Usuario> sacarUsuarios(String nombredb){
 		try {
-			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/"+nombredb);
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/bd/"+nombredb);
 			Statement stmt = conn.createStatement();
 			ArrayList<Usuario> dev = new ArrayList<>();
 			String sql = "SELECT * FROM usuario";
@@ -51,7 +81,7 @@ public class ClaseContenedora {
 	public void guardarDBUsuario(String nombredb, String nombre, String contrasena, int admin, float dinero){
 		try {
 			
-			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/"+nombredb);
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/bd/"+nombredb);
 			Statement stmt = conn.createStatement();
 			String sql = String.format("INSERT INTO usuario VALUES ('%s', '%s', %d, %d)", nombre, contrasena, admin, dinero);
 			logger.log(Level.INFO, "Statement: " + sql);
@@ -73,7 +103,7 @@ public class ClaseContenedora {
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	public void borrarDBUsuario(String nombredb,String nombre){
 		try {
-			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/"+nombredb);
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/bd/"+nombredb);
 			Statement stmt = conn.createStatement();
 			String sql = String.format("DELETE FROM usuario where nombre = '"+ nombre+"';");
 			logger.log(Level.INFO, "Statement: " + sql);
@@ -91,7 +121,7 @@ public class ClaseContenedora {
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	public void cambiarContrasenaBD(String nombredb,String nombre, String contrasena, String nuevaContra){
 		try {
-			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/"+nombredb);
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/bd/"+nombredb);
 			Statement stmt = conn.createStatement();
 			String sql = String.format("UPDATE usuario SET contrasena = '"+nuevaContra+"' where nombre = '"+ nombre+"' AND contrasena= '"+contrasena+"';");
 			logger.log(Level.INFO, "Statement: " + sql);
@@ -114,7 +144,7 @@ public class ClaseContenedora {
 	public Usuario buscarUsuarioPorNombre(String nombredb, String nombre) {
 		String sql = "select * from usuario where nombre = '" + nombre + "'";
 		try {
-			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/"+nombredb);
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/bd/"+nombredb);
 			Statement stmt = conn.createStatement();
 			logger.log(Level.INFO, "Lanzada consulta a base de datos: " + sql);
 			ResultSet rs = stmt.executeQuery( sql );

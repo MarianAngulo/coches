@@ -85,43 +85,36 @@ public class VentanaRegistro extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				boolean saltaError = true;
 				ArrayList<Usuario> lista = cc.sacarUsuarios("Usuario.db");
 				if (textoNombre.getText().isBlank() || textoContrasena.getText().isBlank()) {
 					JOptionPane.showMessageDialog(null, "Por favor ingrese sus credenciales", "Iniciar sesion - Error",
 							JOptionPane.INFORMATION_MESSAGE);
-				}
-				// BD
-				else if (textoNombre.getText().equals("admin") && textoContrasena.getText().equals("admin")) {
-					JOptionPane.showMessageDialog(null, "Has iniciado sesion como administrador");
-					vent.setVisible(false);
-					VentanaAdmin va = new VentanaAdmin();
-					va.setSize(600, 600);
-					va.setLocation(550, 150);
-					va.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-					va.setVisible(true);
-					dispose();
-
-				} else if (textoNombre.getText().equals("usuario") && textoContrasena.getText().equals("usuario")) {
-					JOptionPane.showMessageDialog(null, "Has iniciado sesion como usuario");
-					vent.setVisible(false);
-					VentanaPrincipal vp = new VentanaPrincipal();
-					vp.setSize(600, 600);
-					vp.setLocation(550, 150);
-					vp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-					vp.setVisible(true);
-					dispose();
-
 				} else {
 					for (Usuario u : lista) {
 						if (u.getNombre().equals(textoNombre.getText())
 								&& u.getContrasena().equals(textoContrasena.getText())) {
+							saltaError = false;
 							vent.setVisible(false);
-							VentanaPrincipal vp = new VentanaPrincipal();
-							vp.setSize(700, 700);
-							vp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-							vp.setVisible(true);
-							dispose();
-						}
+							if (u.getAdmin() == 0) {
+								VentanaPrincipal vp = new VentanaPrincipal();
+								vp.setSize(700, 700);
+								vp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+								vp.setVisible(true);
+								dispose();
+							}else {
+								VentanaAdmin va = new VentanaAdmin();
+								va.setSize(600, 600);
+								va.setLocation(550, 150);
+								va.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+								va.setVisible(true);
+								dispose();								
+							}
+						}	
+					}
+					if (saltaError == true) {
+					JOptionPane.showMessageDialog(null, "Las credenciales introducidas son erroneas", "Iniciar sesion - Error",
+							JOptionPane.INFORMATION_MESSAGE);	
 					}
 				}
 
