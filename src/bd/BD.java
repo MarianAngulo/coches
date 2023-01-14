@@ -41,9 +41,8 @@ public class BD {
 		}
 	}
 
-	public static void leerCSV() {
-		
-		String path="data/usuarios.csv";
+	public static void leerCSV(String archivo) { //el parametro que recibe es el nombre del archivo que se quiere leer
+		String path = "data/"+archivo+".csv";
 		String line = "";
 		
 		try {
