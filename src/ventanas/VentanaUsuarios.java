@@ -38,6 +38,7 @@ public class VentanaUsuarios extends JFrame {
 	private JButton btnEliminar;
 	
 	private JList<Usuario> listaUsuarios;
+	private JTable table;
 	
 	
 	public VentanaUsuarios() {
@@ -95,10 +96,14 @@ public class VentanaUsuarios extends JFrame {
 			 tableModel.addRow(data);
 		}
 		
-		tDatos = new JTable(tableModel);
+		//tDatos = new JTable(tableModel);
 		
-		panelCentral.add( new JScrollPane(tDatos));
+		//panelCentral.add( tDatos);
 		getContentPane().add( panelCentral, BorderLayout.CENTER );
+		
+		table = new JTable(tableModel);
+		table.setBounds(36, 10, 345, 200);
+		panelCentral.add(table);
 		
 		
 		btnVolver.addActionListener(new ActionListener() {
