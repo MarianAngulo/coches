@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Vector;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -17,7 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import clases.Usuario;
 
@@ -27,43 +30,76 @@ public class VentanaUsuarios extends JFrame {
 	private JTable tDatos;
 	private DefaultTableModel mDatos;
 	
+	private JPanel panelSup;
+	private JPanel panelCentral;
+	
+	private JButton btnVolver;
+	private JButton btnAgregar;
+	private JButton btnEliminar;
+	
+	private JList<Usuario> listaUsuarios;
+	
+	
 	public VentanaUsuarios() {
 		ClaseContenedora cc = new ClaseContenedora();
+		ArrayList<Usuario> lista = cc.sacarUsuarios("Usuario.db");
 		barra = new JToolBar();
 		
-		JPanel panelSup = new JPanel();
+		panelSup = new JPanel();
 		panelSup.setLayout(new BorderLayout());
 		panelSup.add(barra, BorderLayout.NORTH);
 		getContentPane().add( panelSup, BorderLayout.NORTH );
 		
-		JPanel panelCentral = new JPanel();
-		getContentPane().add( panelCentral, BorderLayout.CENTER );
+		panelCentral = new JPanel();
 		panelCentral.setLayout(null);
 		
-		JButton btnVolver = new JButton("Volver");
+		btnVolver = new JButton("Volver");
 		barra.add(btnVolver);
 		
-		JButton btnAgregar = new JButton("Agregar");
+		btnAgregar = new JButton("Agregar");
 		btnAgregar.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnAgregar.setBounds(50, 450, 200, 37);
 		panelCentral.add(btnAgregar);
 		
-		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnEliminar.setBounds(300, 450, 200, 37);
 		panelCentral.add(btnEliminar);
+		
+		
 
-		JList listaUsuarios = new JList();
+		/*listaUsuarios = new JList<Usuario>();
 		listaUsuarios.setBounds(50, 54, 487, 234);
+		DefaultListModel<Usuario> listModel = new DefaultListModel<Usuario>();
+		for (int i = 0; i < lista.size(); i++)
+		{
+		    listModel.addElement(lista.get(i));
+		}
+		listaUsuarios.setModel(listModel);
+		
+		
 		//panelCentral.add(listaUsuarios);
 		
-		/*
 		JScrollPane scroll = new JScrollPane(listaUsuarios);
 		panelCentral.add(scroll);
 		*/
+
+		String col[] = {"Nombre","Dinero"};
+		DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+		for (int i = 0; i<usuarios.size(); i++) {
+			String nombre = usuarios.get(i).getNombre();
+			float dinero = usuarios.get(i).getDinero();
+			
+			 Object[] data = {nombre, dinero};
+			 
+			 tableModel.addRow(data);
+		}
 		
-		tDatos = new JTable();
-		getContentPane().add( new JScrollPane(tDatos), BorderLayout.CENTER );
+		tDatos = new JTable(tableModel);
+		
+		panelCentral.add( new JScrollPane(tDatos));
+		getContentPane().add( panelCentral, BorderLayout.CENTER );
+		
 		
 		btnVolver.addActionListener(new ActionListener() {
 			
