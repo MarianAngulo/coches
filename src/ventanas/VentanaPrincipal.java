@@ -51,7 +51,7 @@ public class VentanaPrincipal extends JFrame{
 		panelSup.add(barra, BorderLayout.NORTH);
 		add(panelSup);
 		
-		bRespuestos.addActionListener(new ActionListener() {
+		/**bRespuestos.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -66,7 +66,7 @@ public class VentanaPrincipal extends JFrame{
 				
 				
 			}
-		});
+		});**/
 		
 		bAjustes.addActionListener(new ActionListener() {
 

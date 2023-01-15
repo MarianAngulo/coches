@@ -1,8 +1,12 @@
 package ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Vector;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -10,27 +14,36 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import clases.Repuestos;
 
 public class VentanaRepuestos extends JFrame {
-	private static VentanaRepuestos ventRes = new VentanaRepuestos();
 
 	private JToolBar barra;
 	private JToolBar barraAbajo;
+	private static List<Repuestos> repuestos;
+	private JTable tablaRepuestos;
+	private DefaultTableModel modeloDatosRepuestos;
 	
-	private DefaultTableModel imagenes = new DefaultTableModel(new Object[] { "ID ", "compra", "venta" }, 0);
-	private JTable tablaImagenes = new JTable( imagenes );
+	private static VentanaRepuestos ventRes = new VentanaRepuestos(repuestos);
 	
-	private DefaultListModel<Repuestos> ListaRepuestos = new DefaultListModel<>();
-	private JList<Repuestos> tablaRepuestos = new JList<>( ListaRepuestos );
-	
-	
-	
-	public VentanaRepuestos() {
+	public VentanaRepuestos(List<Repuestos> repuestos) {
+		
+		this.repuestos = repuestos;
+		this.iniciarTabla();
+		//this.loadRepuestos();
+		
+		JScrollPane scrollPaneRepuestos = new JScrollPane(this.tablaRepuestos);
+		scrollPaneRepuestos.setBorder(new TitledBorder("Repuestos"));
+		this.tablaRepuestos.setFillsViewportHeight(true);
+		this.getContentPane().setLayout(new GridLayout(2, 1));
+		this.getContentPane().add(scrollPaneRepuestos);
 		
 		barra = new JToolBar();
 		barraAbajo = new JToolBar();
@@ -41,7 +54,7 @@ public class VentanaRepuestos extends JFrame {
 		
 		JPanel panelEast = new JPanel();
 		panelEast.setLayout(new BorderLayout());
-		getContentPane().add( panelEast, BorderLayout.EAST );
+		getContentPane().add( panelEast, BorderLayout.SOUTH );
 		
 		JPanel panelSouth = new JPanel();
 		panelSouth.setLayout(new BorderLayout());
@@ -51,16 +64,18 @@ public class VentanaRepuestos extends JFrame {
 		JButton volver = new JButton("Volver");
 		JButton comprar = new JButton("Comprar");
 		JButton vender = new JButton("Vender");
+		JButton anyadirCSV = new JButton("importar repuestos (archivos locales)");
 		barra.add(comprar);
 		barra.add(vender);
 		barraAbajo.add(volver);
+		barraAbajo.add(anyadirCSV);
+		
 	
 		
 		panelSup.add(barra, BorderLayout.NORTH);
+		panelEast.add(scrollPaneRepuestos, BorderLayout.WEST);
 		panelSouth.add(barraAbajo, BorderLayout.NORTH);
-		panelEast.add(tablaImagenes, BorderLayout.EAST);
-		panelEast.add( new JLabel( "Fotos:" ), BorderLayout.NORTH );
-		panelSup.add(tablaRepuestos, BorderLayout.WEST);
+		
 		
 		
 		volver.addActionListener(new ActionListener() {
@@ -79,6 +94,15 @@ public class VentanaRepuestos extends JFrame {
 		});
 	}
 	
+	
+	private void iniciarTabla() {
+
+		Vector<String> cabeceraComics = new Vector<String>(Arrays.asList( "ID", "EDITORIAL", "TÍTULO", "Personajes"));
+		this.modeloDatosRepuestos = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceraComics);
+		this.tablaRepuestos = new JTable(this.modeloDatosRepuestos);
+		this.tablaRepuestos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+	}
 	
 
 	public static void main(String args[]) {
