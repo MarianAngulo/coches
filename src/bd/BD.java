@@ -2,6 +2,9 @@ package bd;
 
 import java.sql.Connection;
 import java.util.logging.Logger;
+
+import ventanas.ClaseContenedora;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -13,6 +16,7 @@ public class BD {
 	private static Connection conn;
 	public static int id = 0;
 	private static Logger logger = Logger.getLogger("BD");
+	
 
 	public static boolean conexionBd(String nomBD, boolean reinicio) {
 		try {
@@ -40,16 +44,28 @@ public class BD {
 			logger.log(Level.SEVERE, "Excepcion:", e);
 		}
 	}
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////// FUNCION PARA LEER UN CSV ///////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	public static void leerCSV(String archivo) { //el parametro que recibe es el nombre del archivo que se quiere leer
+	public static void leerCSV(String archivo) { 
 		String path = "data/"+archivo+".csv";
 		String line = "";
 		
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(path));//cambiar si es necesario la ruta del archivo
+			BufferedReader br = new BufferedReader(new FileReader(path));
 			while((line=br.readLine())!=null) {
+				
 				String[] values = line.split(",");
-				//System.out.println("nombre: "+values[0]+" apellido: "+values[1]+" admin: "+values[2]+" dinero: "+values[3]);
+				String bd = "Usuario";
+				String nombre = values[0];
+				String contrasena = values[1];
+				int admin = Integer. parseInt(values[2]);
+				float dinero = Float. parseFloat(values[3]);
+				ClaseContenedora claseContenedora = new ClaseContenedora();
+				claseContenedora.guardarDBUsuario(bd, nombre, contrasena, admin, dinero);
+				
 			}
 		}catch (FileNotFoundException e){
 			e.printStackTrace();
