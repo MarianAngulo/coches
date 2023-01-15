@@ -52,10 +52,6 @@ public class VentanaRepuestos extends JFrame {
 		panelSup.setLayout(new BorderLayout());
 		getContentPane().add( panelSup, BorderLayout.NORTH );
 		
-		JPanel panelEast = new JPanel();
-		panelEast.setLayout(new BorderLayout());
-		getContentPane().add( panelEast, BorderLayout.SOUTH );
-		
 		JPanel panelSouth = new JPanel();
 		panelSouth.setLayout(new BorderLayout());
 		getContentPane().add( panelSouth, BorderLayout.SOUTH );
@@ -71,10 +67,10 @@ public class VentanaRepuestos extends JFrame {
 		barraAbajo.add(anyadirCSV);
 		
 	
-		
 		panelSup.add(barra, BorderLayout.NORTH);
-		panelEast.add(scrollPaneRepuestos, BorderLayout.WEST);
-		panelSouth.add(barraAbajo, BorderLayout.NORTH);
+		panelSouth.add(barraAbajo, BorderLayout.SOUTH);
+		panelSup.add(scrollPaneRepuestos, BorderLayout.CENTER);
+		
 		
 		
 		
@@ -97,7 +93,7 @@ public class VentanaRepuestos extends JFrame {
 	
 	private void iniciarTabla() {
 
-		Vector<String> cabeceraComics = new Vector<String>(Arrays.asList( "ID", "EDITORIAL", "TÍTULO", "Personajes"));
+		Vector<String> cabeceraComics = new Vector<String>(Arrays.asList( "Tipo", "ID", "Compra", "Venta"));
 		this.modeloDatosRepuestos = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceraComics);
 		this.tablaRepuestos = new JTable(this.modeloDatosRepuestos);
 		this.tablaRepuestos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
