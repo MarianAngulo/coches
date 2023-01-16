@@ -14,7 +14,7 @@ public class UsuarioTest {
 	private String nombre="nombre";
 	private String contrasena="contraseña";
 	private int admin=0;
-	private float dinero=0.0f;
+	private int dinero=0;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -31,7 +31,7 @@ public class UsuarioTest {
 		assertEquals(nombre, usuario.getNombre());
 		assertEquals(contrasena, usuario.getContrasena());
 		assertEquals(admin, usuario.getAdmin());
-		assertEquals(dinero, usuario.getDinero(), 0.0f);
+		assertEquals(dinero, usuario.getDinero(), 0);
 		
 		
 	}
@@ -76,12 +76,12 @@ public class UsuarioTest {
 	}
 	@Test
 	public void testGetDinero() {
-		assertEquals(dinero, usuario.getDinero(), 0.0f);
+		assertEquals(dinero, usuario.getDinero(), 0);
 	}
 	
 	@Test
 	public void testSetPrecioHora() {
-		float din = 0.0f;
+		int din = 0;
 		
 		assertEquals(dinero, usuario.getDinero(), 0.0f);
 		usuario.setDinero(din);
