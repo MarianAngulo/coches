@@ -51,11 +51,11 @@ public class VentanaPrincipal extends JFrame{
 		panelSup.add(barra, BorderLayout.NORTH);
 		add(panelSup);
 		
-		/**bRespuestos.addActionListener(new ActionListener() {
+		bRespuestos.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaRepuestos ventRes = new VentanaRepuestos();
+				VentanaRepuestos ventRes = new VentanaRepuestos(null);
 				ventRes.setTitle("Repuestos");
 				ventRes.setSize(700, 700);
 				ventRes.setLocationRelativeTo(null);
@@ -66,7 +66,7 @@ public class VentanaPrincipal extends JFrame{
 				
 				
 			}
-		});**/
+		});
 		
 		bAjustes.addActionListener(new ActionListener() {
 
