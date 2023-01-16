@@ -43,7 +43,7 @@ public class VentanaUsuarios extends JFrame {
 	
 	public VentanaUsuarios() {
 		ClaseContenedora cc = new ClaseContenedora();
-		ArrayList<Usuario> lista = cc.sacarUsuarios("Usuario.db");
+		usuarios = cc.sacarUsuarios("Usuario.db");
 		barra = new JToolBar();
 		
 		panelSup = new JPanel();
@@ -89,9 +89,9 @@ public class VentanaUsuarios extends JFrame {
 		DefaultTableModel tableModel = new DefaultTableModel(col, 0);
 		for (int i = 0; i<usuarios.size(); i++) {
 			String nombre = usuarios.get(i).getNombre();
-			float dinero = usuarios.get(i).getDinero();
+			int dinero = usuarios.get(i).getDinero();
 			
-			 Object[] data = {nombre, dinero};
+			 Object[] data = {nombre, dinero + "€"};
 			 
 			 tableModel.addRow(data);
 		}
@@ -130,7 +130,7 @@ public class VentanaUsuarios extends JFrame {
 				}
 				//Confirmar que no existe un usuario con ese nombre y guardarlo en la bbdd
 				if (cc.buscarUsuarioPorNombre("Usuario.db", name) == null) {
-					cc.guardarDBUsuario("Usuario", name, con, 0, 0);
+					cc.guardarDBUsuario("Usuario.db", name.toString(), con.toString(), 0, 0);
 				}
 			}
 		});

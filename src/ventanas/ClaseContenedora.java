@@ -31,8 +31,6 @@ public class ClaseContenedora {
 			stmt = conn.createStatement();
 			stmt.setQueryTimeout( 10 );
 			stmt.executeUpdate("create table if not exists usuario (nombre string, contrasena string, admin integer, dinero integer)");
-			stmt.executeUpdate("create table if not exists categoria (codigo integer, nombre string, numFotos integer)");
-			stmt.executeUpdate("create table if not exists foto (codigo integer, usuario string, categoria integer, fecha bigint, rutaFoto string)");
 			return true;
 		} catch (ClassNotFoundException | SQLException e) {
 			logger.log( Level.SEVERE, "Error en conexión de base de datos " + nombredb, e );
@@ -40,10 +38,7 @@ public class ClaseContenedora {
 		}
 	}
 	
-	
-	
-	
-	
+
 	///////////////////////////////////////////////////
 	//////////// SACAR USUARIOS DE LA BBDD  ///////////
 	///////////////////////////////////////////////////
@@ -59,7 +54,7 @@ public class ClaseContenedora {
 				String nombre = rs.getString("nombre");
 				String contrasena = rs.getString("contrasena");
 				int admin = rs.getInt("admin");
-				float dinero = rs.getInt("dinero");
+				int dinero = rs.getInt("dinero");
 				dev.add( new Usuario( nombre, contrasena, admin, dinero) );
 			}
 			rs.close();
@@ -78,7 +73,7 @@ public class ClaseContenedora {
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////// FUNCION PARA METER UN USUARIO EN LA BASE DE DATOS //////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
-	public void guardarDBUsuario(String nombredb, String nombre, String contrasena, int admin, float dinero){
+	public void guardarDBUsuario(String nombredb, String nombre, String contrasena, int admin, int dinero){
 		try {
 			
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/bd/"+nombredb);

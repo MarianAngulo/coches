@@ -28,7 +28,7 @@ public class BD {
 				String nombre = values[0];
 				String contrasena = values[1];
 				int admin = Integer. parseInt(values[2]);
-				float dinero = Float. parseFloat(values[3]);
+				int dinero = Integer. parseInt(values[3]);
 				ClaseContenedora claseContenedora = new ClaseContenedora();
 				claseContenedora.guardarDBUsuario(bd, nombre, contrasena, admin, dinero);
 				

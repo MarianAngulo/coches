@@ -4,9 +4,9 @@ public class Usuario {
 	private String nombre;
 	private String contrasena;
 	private int admin;
-	private float dinero;
+	private int dinero;
 	
-	public Usuario(String nombre, String contrasena, int admin, float dinero) {
+	public Usuario(String nombre, String contrasena, int admin, int dinero) {
 		this.nombre = nombre;
 		this.contrasena = contrasena;
 		this.admin = admin;
@@ -37,11 +37,11 @@ public class Usuario {
 		this.admin = admin;
 	}
 	
-	public float getDinero() {
+	public int getDinero() {
 		return dinero;
 	}
 	
-	public void setDinero(float dinero) {
+	public void setDinero(int dinero) {
 		this.dinero = dinero;
 	}
 
