@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -37,7 +39,6 @@ public class VentanaUsuarios extends JFrame {
 	private JButton btnAgregar;
 	private JButton btnEliminar;
 	
-	private JList<Usuario> listaUsuarios;
 	private JTable table;
 	
 	
@@ -67,43 +68,28 @@ public class VentanaUsuarios extends JFrame {
 		btnEliminar.setBounds(300, 450, 200, 37);
 		panelCentral.add(btnEliminar);
 		
-		
 
-		/*listaUsuarios = new JList<Usuario>();
-		listaUsuarios.setBounds(50, 54, 487, 234);
-		DefaultListModel<Usuario> listModel = new DefaultListModel<Usuario>();
-		for (int i = 0; i < lista.size(); i++)
-		{
-		    listModel.addElement(lista.get(i));
-		}
-		listaUsuarios.setModel(listModel);
-		
-		
-		//panelCentral.add(listaUsuarios);
-		
-		JScrollPane scroll = new JScrollPane(listaUsuarios);
-		panelCentral.add(scroll);
-		*/
-
-		String col[] = {"Nombre","Dinero"};
+		String col[] = {"Nombre","Dinero", "Admin"};
 		DefaultTableModel tableModel = new DefaultTableModel(col, 0);
 		for (int i = 0; i<usuarios.size(); i++) {
 			String nombre = usuarios.get(i).getNombre();
 			int dinero = usuarios.get(i).getDinero();
+			String admin = "";
+			if (usuarios.get(i).getAdmin() == 1) {admin = "Admin";}
+			else {admin = "Usuario";}
 			
-			 Object[] data = {nombre, dinero + "€"};
+			 Object[] data = {nombre, dinero + "€", admin};
 			 
 			 tableModel.addRow(data);
 		}
-		
-		//tDatos = new JTable(tableModel);
-		
-		//panelCentral.add( tDatos);
-		getContentPane().add( panelCentral, BorderLayout.CENTER );
+
 		
 		table = new JTable(tableModel);
 		table.setBounds(36, 10, 345, 200);
+		
 		panelCentral.add(table);
+		
+		getContentPane().add( panelCentral, BorderLayout.CENTER );
 		
 		
 		btnVolver.addActionListener(new ActionListener() {
@@ -131,7 +117,14 @@ public class VentanaUsuarios extends JFrame {
 				//Confirmar que no existe un usuario con ese nombre y guardarlo en la bbdd
 				if (cc.buscarUsuarioPorNombre("Usuario.db", name) == null) {
 					cc.guardarDBUsuario("Usuario.db", name.toString(), con.toString(), 0, 0);
+					
+					VentanaUsuarios vu = new VentanaUsuarios();
+					vu.setSize(600, 600);
+					vu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					vu.setVisible(true);
+					dispose();
 				}
+				
 			}
 		});
 		
@@ -139,11 +132,21 @@ public class VentanaUsuarios extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				usuarios.remove(listaUsuarios.getSelectedIndex());
-				//eliminar de la BD
-				cc.borrarDBUsuario("Usuario.db", usuarios.get(listaUsuarios.getSelectedIndex()).getNombre());
-				
-				repaint();
+				if (table.getSelectedRow() >= 0) {
+					if (usuarios.get(table.getSelectedRow()).getAdmin() == 1) {
+						JOptionPane.showMessageDialog(null, "No puedes eliminar a otro administrador.");
+					}else {	
+							//eliminar de la BD
+							cc.borrarDBUsuario("Usuario.db", usuarios.get(table.getSelectedRow()).getNombre());
+							usuarios.remove(table.getSelectedRow());
+							
+							VentanaUsuarios vu = new VentanaUsuarios();
+							vu.setSize(600, 600);
+							vu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+							vu.setVisible(true);
+							dispose();
+					}
+				}
 			}
 		});
 	}
