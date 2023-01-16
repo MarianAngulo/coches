@@ -185,11 +185,11 @@ public class ClaseContenedora {
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////// FUNCION PARA CAMBIAR LA CANTIDAD DE DINERO DEL USUARIO SELECCIONADO EN LA BD ///////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
-	public void cambiarDineroBD(String nombredb,String nombre, int newDinero){
+	public void cambiarDineroBD(String nombredb,String nombre, int newDinero, int dineroActual){
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/bd/"+nombredb);
 			Statement stmt = conn.createStatement();
-			String sql = String.format("UPDATE usuario SET dinero = '"+newDinero+"' where nombre = '"+ nombre+"';");
+			String sql = String.format("UPDATE usuario SET dinero = '"+(newDinero + dineroActual)+"' where nombre = '"+ nombre+"';");
 			logger.log(Level.INFO, "Statement: " + sql);
 			stmt.executeUpdate(sql);
 			stmt.close();

@@ -88,7 +88,7 @@ public class VentanaCuenta extends JFrame{
 		JTextField textDinero = new JTextField();
 		textDinero.setEditable(false);
 		textDinero.setBounds(250, 200, 96, 20);
-		textDinero.setText(Integer.toString(vr.usuarioLogged.getDinero()) + "�");
+		textDinero.setText(Integer.toString(vr.usuarioLogged.getDinero()) + " €");
 		panelCentral.add(textDinero);
 
 		
@@ -122,13 +122,14 @@ public class VentanaCuenta extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int result = JOptionPane.showConfirmDialog(null, "�Seguro que quieres cambiar tu contrasena?");
+				int result = JOptionPane.showConfirmDialog(null, "¿Seguro que quieres cambiar tu contrasena?");
 
 		        if (result == 0) {
 		        	System.out.println("You pressed Yes");
 		        	String newContrasena = JOptionPane.showInputDialog(null, "Introduzca su nueva contrasena:");
 
 		        	cc.cambiarContrasenaBD("Usuario.db", vr.usuarioLogged.getNombre(), vr.usuarioLogged.getContrasena(), newContrasena);
+		        	vr.usuarioLogged.setContrasena(newContrasena);
 		        	
 		        	System.out.println("Su nueva contrasena es: "+newContrasena);
 		        	textContrasena.setText(newContrasena);
@@ -143,8 +144,9 @@ public class VentanaCuenta extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 		        String monedero = JOptionPane.showInputDialog(null, "Introduzca una cantidad:");
-		        cc.cambiarDineroBD("Usuario.db", vr.usuarioLogged.getNombre(), Integer.parseInt(monedero));
-		        textDinero.setText(monedero);
+		        cc.cambiarDineroBD("Usuario.db", vr.usuarioLogged.getNombre(), Integer.parseInt(monedero), cc.buscarUsuarioPorNombre("Usuario.db", vr.usuarioLogged.getNombre()).getDinero());
+		        vr.usuarioLogged.setDinero(cc.buscarUsuarioPorNombre("Usuario.db", vr.usuarioLogged.getNombre()).getDinero());
+		        textDinero.setText(cc.buscarUsuarioPorNombre("Usuario.db", vr.usuarioLogged.getNombre()).getDinero() + " €");
 			}
 		});
 		
