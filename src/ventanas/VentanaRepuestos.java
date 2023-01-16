@@ -4,6 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
@@ -22,6 +27,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import clases.Repuestos;
+import clases.TipoRepuesto;
+
 
 public class VentanaRepuestos extends JFrame {
 
@@ -33,11 +40,18 @@ public class VentanaRepuestos extends JFrame {
 	
 	private static VentanaRepuestos ventRes = new VentanaRepuestos(repuestos);
 	
+	
 	public VentanaRepuestos(List<Repuestos> repuestos) {
 		
+		repuestos = new ArrayList<Repuestos>();
 		this.repuestos = repuestos;
+		
+		/**Repuestos r= new Repuestos(1,TipoRepuesto.MOTOR,12.0f,12.0f);
+		repuestos.add(r);**/
+		
+		this.leerCSV();
 		this.iniciarTabla();
-		//this.loadRepuestos();
+		this.cargarRepuestos();
 		
 		JScrollPane scrollPaneRepuestos = new JScrollPane(this.tablaRepuestos);
 		scrollPaneRepuestos.setBorder(new TitledBorder("Repuestos"));
@@ -93,11 +107,46 @@ public class VentanaRepuestos extends JFrame {
 	
 	private void iniciarTabla() {
 
-		Vector<String> cabeceraComics = new Vector<String>(Arrays.asList( "Tipo", "ID", "Compra", "Venta"));
+		Vector<String> cabeceraComics = new Vector<String>(Arrays.asList("ID", "Tipo", "Compra", "Venta"));
 		this.modeloDatosRepuestos = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceraComics);
 		this.tablaRepuestos = new JTable(this.modeloDatosRepuestos);
 		this.tablaRepuestos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
+	}
+	
+	private void cargarRepuestos() {
+		this.modeloDatosRepuestos.setRowCount(0);
+		
+		for (Repuestos c : this.repuestos) {
+			this.modeloDatosRepuestos.addRow( new Object[] {c.getId(), c.getTipo(), c.getCompra(), c.getVenta()} );
+		}		
+	}
+	
+	
+	public void leerCSV() {
+		String path = "data/repuestos.csv";
+		String line = "";
+		
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(path));
+			while((line=br.readLine())!=null) {
+				
+				String[] values = line.split(",");
+			
+				TipoRepuesto motor = TipoRepuesto.valueOf(values[0]);
+				int id = Integer.parseInt(values[1]);
+				int compra = Integer.parseInt(values[2]);
+				int venta = Integer.parseInt(values[3]);
+				
+				Repuestos r = new Repuestos(id,motor,compra,venta);
+				repuestos.add(r);
+				
+			}
+		}catch (FileNotFoundException e){
+			e.printStackTrace();
+		}catch (IOException e){
+			e.printStackTrace();
+		}
 	}
 	
 
