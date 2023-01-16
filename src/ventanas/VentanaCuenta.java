@@ -19,9 +19,11 @@ public class VentanaCuenta extends JFrame{
 	
 	private JToolBar barra;
 	
-	public VentanaCuenta(/*Usuario u*/) {
+	public VentanaCuenta() {
 		VentanaRegistro vr = new VentanaRegistro();
 		System.out.println(vr.usuarioLogged.getNombre());
+		
+		ClaseContenedora cc = new ClaseContenedora();
 		
 		barra = new JToolBar();
 		
@@ -81,7 +83,7 @@ public class VentanaCuenta extends JFrame{
 		JTextField textDinero = new JTextField();
 		textDinero.setEditable(false);
 		textDinero.setBounds(250, 200, 96, 20);
-		textDinero.setText(Integer.toString(vr.usuarioLogged.getDinero()) + "€");
+		textDinero.setText(Integer.toString(vr.usuarioLogged.getDinero()) + "ï¿½");
 		panelCentral.add(textDinero);
 
 		
@@ -101,8 +103,8 @@ public class VentanaCuenta extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//FALTA FUNCIONALIDAD BD
-				//te devuelve a la ventana registro
+				cc.borrarDBUsuario("Usuario.db", vr.usuarioLogged.getNombre());
+				
 				VentanaRegistro vr = new VentanaRegistro();
 				vr.setSize(1000, 500);
 				vr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -115,14 +117,14 @@ public class VentanaCuenta extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//FALTA FUNCIONALIDAD BD
-				//te devuelve a la ventana registro
 				int result = JOptionPane.showConfirmDialog(null, "ï¿½Seguro que quieres cambiar tu contrasena?");
 
 		        if (result == 0) {
 		        	System.out.println("You pressed Yes");
 		        	String newContrasena = JOptionPane.showInputDialog(null, "Introduzca su nueva contrasena:");
-		        	//funcionalidad BD
+
+		        	cc.cambiarContrasenaBD("Usuario.db", vr.usuarioLogged.getNombre(), vr.usuarioLogged.getContrasena(), newContrasena);
+		        	
 		        	System.out.println("Su nueva contrasena es: "+newContrasena);
 		        	textContrasena.setText(newContrasena);
 		        }  
