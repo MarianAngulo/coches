@@ -46,9 +46,6 @@ public class VentanaRepuestos extends JFrame {
 		repuestos = new ArrayList<Repuestos>();
 		this.repuestos = repuestos;
 		
-		/**Repuestos r= new Repuestos(1,TipoRepuesto.MOTOR,12.0f,12.0f);
-		repuestos.add(r);**/
-		
 		this.leerCSV();
 		this.iniciarTabla();
 		this.cargarRepuestos();
@@ -74,11 +71,10 @@ public class VentanaRepuestos extends JFrame {
 		JButton volver = new JButton("Volver");
 		JButton comprar = new JButton("Comprar");
 		JButton vender = new JButton("Vender");
-		JButton anyadirCSV = new JButton("importar repuestos (archivos locales)");
+		
 		barra.add(comprar);
 		barra.add(vender);
 		barraAbajo.add(volver);
-		barraAbajo.add(anyadirCSV);
 		
 	
 		panelSup.add(barra, BorderLayout.NORTH);
