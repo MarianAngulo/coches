@@ -183,6 +183,28 @@ public class ClaseContenedora {
 	}
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////// FUNCION PARA CAMBIAR LA CANTIDAD DE DINERO DEL USUARIO SELECCIONADO EN LA BD ///////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	public void cambiarDineroBD(String nombredb,String nombre, int newDinero){
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/bd/"+nombredb);
+			Statement stmt = conn.createStatement();
+			String sql = String.format("UPDATE usuario SET dinero = '"+newDinero+"' where nombre = '"+ nombre+"';");
+			logger.log(Level.INFO, "Statement: " + sql);
+			stmt.executeUpdate(sql);
+			stmt.close();
+			Statement stmt2 = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM usuario");
+			stmt2.close();
+			rs.close();
+			conn.close(); 
+			} catch (SQLException e) {
+			System.out.println("No se ha podido cargar el driver de la base de datos");
+			}
+	
+	}
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////// FUNCION PARA BUSCAR UN USUARIO POR SU NOMBRE //////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	public Usuario buscarUsuarioPorNombre(String nombredb, String nombre) {

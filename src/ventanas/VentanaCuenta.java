@@ -41,13 +41,18 @@ public class VentanaCuenta extends JFrame{
 		
 		JButton btnBorrar = new JButton("Borrar la cuenta");
 		btnBorrar.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnBorrar.setBounds(150, 340, 200, 37);
+		btnBorrar.setBounds(150, 400, 200, 37);
 		panelCentral.add(btnBorrar);
 		
 		JButton btnContrasena = new JButton("Cambiar contrasena");
 		btnContrasena.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnContrasena.setBounds(150, 280, 200, 37);
 		panelCentral.add(btnContrasena);
+		
+		JButton btnDinero = new JButton("Añadir dinero");
+		btnDinero.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnDinero.setBounds(150, 340, 200, 37);
+		panelCentral.add(btnDinero);
 		
 		JLabel lblCuenta = new JLabel("Tu cuenta");
 		lblCuenta.setBounds(180, 20, 133, 31);
@@ -132,5 +137,16 @@ public class VentanaCuenta extends JFrame{
 		            System.out.println("You pressed NO");
 			}
 		});
+		
+		btnDinero.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+		        String monedero = JOptionPane.showInputDialog(null, "Introduzca una cantidad:");
+		        cc.cambiarDineroBD("Usuario.db", vr.usuarioLogged.getNombre(), Integer.parseInt(monedero));
+		        textDinero.setText(monedero);
+			}
+		});
+		
 	}
 }
