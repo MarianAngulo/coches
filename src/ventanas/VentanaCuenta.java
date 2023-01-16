@@ -20,6 +20,9 @@ public class VentanaCuenta extends JFrame{
 	private JToolBar barra;
 	
 	public VentanaCuenta(/*Usuario u*/) {
+		VentanaRegistro vr = new VentanaRegistro();
+		System.out.println(vr.usuarioLogged.getNombre());
+		
 		barra = new JToolBar();
 		
 		JButton bVolver = new JButton("Volver");
@@ -55,9 +58,10 @@ public class VentanaCuenta extends JFrame{
 		panelCentral.add(lblNombre);
 		JTextField textNombre = new JTextField();
 		textNombre.setEditable(false);
-		textNombre.setBounds(250, 100, 96, 14);
+		textNombre.setBounds(250, 100, 96, 20);
+		textNombre.setText(vr.usuarioLogged.getNombre());
 		panelCentral.add(textNombre);
-		//textNombre.setText(u.getNombre()); --> cuando funcione la BD
+
 		
 		JLabel lblContrasena = new JLabel("Contrasena");
 		lblContrasena.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -65,9 +69,10 @@ public class VentanaCuenta extends JFrame{
 		panelCentral.add(lblContrasena);
 		JTextField textContrasena = new JTextField();
 		textContrasena.setEditable(false);
-		textContrasena.setBounds(250, 150, 96, 14);
+		textContrasena.setBounds(250, 150, 96, 20);
+		textContrasena.setText(vr.usuarioLogged.getContrasena());
 		panelCentral.add(textContrasena);
-		//textContrasena.setText(u.getContrasena()); --> cuando funcione la BD
+
 		
 		JLabel lblDinero = new JLabel("Dinero");
 		lblDinero.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -75,9 +80,10 @@ public class VentanaCuenta extends JFrame{
 		panelCentral.add(lblDinero);
 		JTextField textDinero = new JTextField();
 		textDinero.setEditable(false);
-		textDinero.setBounds(250, 200, 96, 14);
+		textDinero.setBounds(250, 200, 96, 20);
+		textDinero.setText(Integer.toString(vr.usuarioLogged.getDinero()) + "€");
 		panelCentral.add(textDinero);
-		//textDinero.setText(u.getDinero()); --> cuando funcione la BD
+
 		
 		bVolver.addActionListener(new ActionListener() {
 			

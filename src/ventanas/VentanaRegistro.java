@@ -27,6 +27,7 @@ import ventanas.VentanaPrincipal;
 public class VentanaRegistro extends JFrame {
 	private static VentanaRegistro vent = new VentanaRegistro();
 
+	public static Usuario usuarioLogged;
 	private static final long serialVersionUID = -6454706567318509276L;
 	private JPanel panelcent;
 	private JPanel panelcent2;
@@ -97,6 +98,7 @@ public class VentanaRegistro extends JFrame {
 							saltaError = false;
 							vent.setVisible(false);
 							if (u.getAdmin() == 0) {
+								usuarioLogged = u;
 								VentanaPrincipal vp = new VentanaPrincipal();
 								vp.setSize(700, 700);
 								vp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
