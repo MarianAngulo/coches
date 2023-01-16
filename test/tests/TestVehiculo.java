@@ -16,7 +16,7 @@ public class TestVehiculo {
 	private MarcaVehiculo marca = MarcaVehiculo.BMW;
 	private String modelo = "M2";
 	private int id = 23;
-	private float precio = 2000.50f;
+	private int precio = 2000;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -94,9 +94,9 @@ public class TestVehiculo {
 
 	@Test
 	public void testSetPrecio() {
-		float prec = 12000.00f;
+		int prec = 12000;
 		vehiculo.setPrecio(prec);
-		assertEquals(prec, vehiculo.getPrecio(),0.0f);
+		assertEquals(prec, vehiculo.getPrecio(),0);
 
 	}
 

@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import bd.BD;
 import clases.Usuario;
 import ventanas.VentanaPrincipal;
 
@@ -156,6 +157,8 @@ public class VentanaRegistro extends JFrame {
 	}
 
 	public static void main(String args[]) {
+		BD.leerCSVRepuestos("repuestos");
+		BD.leerCSVVehiculos("vehiculos");
 		vent.setTitle("Ventana para anyadir nuevo usuario");
 		vent.setSize(1000, 500);
 		vent.setLocation(550, 150);

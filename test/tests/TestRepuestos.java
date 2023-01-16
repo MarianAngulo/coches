@@ -13,8 +13,8 @@ public class TestRepuestos {
 	private Repuestos repuestos;
 	private int id = 12;
 	private TipoRepuesto tipo = TipoRepuesto.MOTOR;
-	private float compra = 24.8f;
-	private float venta = 15.4f;
+	private int compra = 24;
+	private int venta = 15;
 
 	@Before
 	public void setUp() throws Exception {
@@ -32,8 +32,8 @@ public class TestRepuestos {
 		assertNotNull(repuestos);
 		assertEquals(id, repuestos.getId());
 		assertEquals(tipo, TipoRepuesto.valueOf("MOTOR"));
-		assertEquals(compra, repuestos.getCompra(), 0.0f);
-		assertEquals(venta, repuestos.getVenta(),0.0f);
+		assertEquals(compra, repuestos.getCompra(), 0);
+		assertEquals(venta, repuestos.getVenta(), 0);
 	}
 
 	@Test
@@ -62,27 +62,27 @@ public class TestRepuestos {
 
 	@Test
 	public void testGetCompra() {
-		assertEquals(compra, repuestos.getCompra(),0.0f);
+		assertEquals(compra, repuestos.getCompra(),0);
 		
 	}
 
 	@Test
 	public void testSetCompra() {
-		float comp = 2.4f;
+		int comp = 2;
 		repuestos.setCompra(comp);
-		assertEquals(comp, repuestos.getCompra(),0.0f);
+		assertEquals(comp, repuestos.getCompra(),0);
 	}
 
 	@Test
 	public void testGetVenta() {
-		assertEquals(venta, repuestos.getVenta(),0.0f);
+		assertEquals(venta, repuestos.getVenta(),0);
 	}
 
 	@Test
 	public void testSetVenta() {
-		float vent = 22.5f;
+		int vent = 22;
 		repuestos.setVenta(vent);
-		assertEquals(vent, repuestos.getVenta(),0.0f);
+		assertEquals(vent, repuestos.getVenta(),0);
 	}
 
 }

@@ -5,11 +5,11 @@ package clases;
 public class Repuestos {
 	private TipoRepuesto tipo;
 	private int Id;
-	private float compra;
-	private float venta;
+	private int compra;
+	private int venta;
 	
 	
-	public Repuestos(int Id, TipoRepuesto tipo,  float compra, float venta) {
+	public Repuestos(int Id, TipoRepuesto tipo,  int compra, int venta) {
 		this.Id = Id;
 		this.tipo = tipo;
 		this.compra = compra;
@@ -34,22 +34,22 @@ public class Repuestos {
 	}
 
 
-	public float getCompra() {
+	public int getCompra() {
 		return compra;
 	}
 
 
-	public void setCompra(float compra) {
+	public void setCompra(int compra) {
 		this.compra = compra;
 	}
 
 
-	public float getVenta() {
+	public int getVenta() {
 		return venta;
 	}
 
 
-	public void setVenta(float venta) {
+	public void setVenta(int venta) {
 		this.venta = venta;
 	}
 

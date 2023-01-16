@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import clases.MarcaVehiculo;
+import clases.TipoRepuesto;
+import clases.TipoVehiculo;
 import clases.Usuario;
 
 public class ClaseContenedora {
@@ -104,6 +107,52 @@ public class ClaseContenedora {
 			logger.log(Level.INFO, "Statement: " + sql);
 			stmt.executeUpdate(sql);
 			stmt.close();
+			conn.close(); 
+			} catch (SQLException e) {
+			System.out.println("No se ha podido cargar el driver de la base de datos");
+			}
+		
+	}
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////// FUNCION PARA METER UN VEHICULO EN LA BASE DE DATOS //////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	public void guardarDBVehiculo(String nombredb, int id, TipoVehiculo tipo, String modelo, MarcaVehiculo marca, int precio){
+		try {
+			
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/bd/"+nombredb);
+			Statement stmt = conn.createStatement();
+			String sql = String.format("INSERT INTO vehiculos VALUES ( %d, '%s', '%s', '%s', %d)", id, tipo, modelo, marca, precio);
+			logger.log(Level.INFO, "Statement: " + sql);
+			stmt.executeUpdate(sql);
+			stmt.close();
+			Statement stmt2 = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM vehiculos");
+			stmt2.close();
+			rs.close();
+			conn.close(); 
+			} catch (SQLException e) {
+			System.out.println("No se ha podido cargar el driver de la base de datos");
+			}
+		
+	}
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////// FUNCION PARA METER UN REPUESTO EN LA BASE DE DATOS //////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	public void guardarDBRepuesto(String nombredb, int id, TipoRepuesto tipo, int compra, int venta){
+		try {
+			
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/bd/"+nombredb);
+			Statement stmt = conn.createStatement();
+			String sql = String.format("INSERT INTO repuestos VALUES ( %d, '%s', %d, %d)", id, tipo, compra, venta);
+			logger.log(Level.INFO, "Statement: " + sql);
+			stmt.executeUpdate(sql);
+			stmt.close();
+			Statement stmt2 = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM repuestos");
+			stmt2.close();
+			rs.close();
 			conn.close(); 
 			} catch (SQLException e) {
 			System.out.println("No se ha podido cargar el driver de la base de datos");

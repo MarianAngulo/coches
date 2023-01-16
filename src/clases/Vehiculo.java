@@ -5,9 +5,9 @@ public class Vehiculo {
 	private String modelo;
 	private MarcaVehiculo marca;
 	private int id;
-	private float precio;
+	private int precio;
 	
-	public Vehiculo(TipoVehiculo tipo, MarcaVehiculo marca, String modelo,int id, float precio) {
+	public Vehiculo(TipoVehiculo tipo, MarcaVehiculo marca, String modelo,int id, int precio) {
 		this.tipo = tipo;
 		this.modelo = modelo;
 		this.marca = marca;
@@ -39,11 +39,11 @@ public class Vehiculo {
 		this.id = id;
 	}
 
-	public float getPrecio() {
+	public int getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(float precio) {
+	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
 
