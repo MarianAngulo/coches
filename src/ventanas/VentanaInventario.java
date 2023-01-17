@@ -29,15 +29,19 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import clases.MarcaVehiculo;
+import clases.Repuestos;
 import clases.TipoVehiculo;
 import clases.Vehiculo;
 
 
-public class VentanaVehiculos extends JFrame {
+public class VentanaInventario extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
-	static List<Vehiculo> listvehiculos;
-	private static VentanaVehiculos ventVe = new VentanaVehiculos();
+	private static List<Vehiculo> listvehiculosUsu;
+	private static List<Repuestos> repuestosUsu;
+	private static VentanaInventario ventVe = new VentanaInventario();
+	private JTable tablaRepuestos;
+	private DefaultTableModel modeloDatosRepuestos;
 	private DefaultTableModel modelo;
 	private JTable tabla;
 	private JToolBar botonesSup;
@@ -45,20 +49,39 @@ public class VentanaVehiculos extends JFrame {
 	
 	
 	
-	public VentanaVehiculos() {
+	public VentanaInventario() {	
+		repuestosUsu = new ArrayList<Repuestos>();
+		listvehiculosUsu = new ArrayList<Vehiculo>();
+		VentanaRegistro vr = new VentanaRegistro();
+		VentanaVehiculos vv = new VentanaVehiculos();
+		VentanaRepuestos vp = new VentanaRepuestos();
+		ClaseContenedora cc = new ClaseContenedora();
+
+		initTablaRepuestos();
 		
-		listvehiculos= new ArrayList<Vehiculo>();
+		for (Vehiculo v: vv.listvehiculos) {
+			 for (int i = 0; i< cc.sacarIdsUsuario("Usuario.db", vr.usuarioLogged).size(); i++) {
+				if (cc.sacarIdsUsuario("Usuario.db", vr.usuarioLogged).get(i) == v.getId()) {
+					listvehiculosUsu.add(v);
+				}
+			}
+		}
 		
-		leerCSV();
-		initTabla();
-		cargarVehiculos();
+		for (Repuestos r: vp.repuestos) {
+			 for (int i = 0; i< cc.sacarIdsUsuario("Usuario.db", vr.usuarioLogged).size(); i++) {
+				if (cc.sacarIdsUsuario("Usuario.db", vr.usuarioLogged).get(i) == r.getId()) {
+					repuestosUsu.add(r);
+				}
+			}
+		}
+		
 		
 		setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
-		setTitle("Vehiculos");
+		setTitle("Inventario");
 		setSize(700, 700);
 		JScrollPane scrollPane = new JScrollPane(tabla);
-		scrollPane.setBorder(new TitledBorder("Vehiculos"));
-		tabla.setFillsViewportHeight(true);
+		scrollPane.setBorder(new TitledBorder("Inventario"));
+		this.tabla.setFillsViewportHeight(true);
 		getContentPane().setLayout(new GridLayout(2, 1));
 		getContentPane().add(scrollPane);
 		botonesSup = new JToolBar();
@@ -77,19 +100,25 @@ public class VentanaVehiculos extends JFrame {
 		panelInf.add(botonesInf,BorderLayout.SOUTH);
 		panelSup.add(botonesSup,BorderLayout.NORTH);
 		
-		JButton botoncomp = new JButton("Comprar");
+		JButton botoncomp = new JButton("Vehiculos");
 		botonesSup.add(botoncomp);
 		botoncomp.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				cargarVehiculos();
+				initTablaVehiculos();
+				repaint();
 			}
 		});
 		
-		JButton botonven = new JButton("Vender");
+		JButton botonven = new JButton("Repuestos");
 		botonesSup.add(botonven);
 		botonven.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				cargarRepuestos();
+				initTablaRepuestos();
+				repaint();
 			}
 		});
 		
@@ -110,76 +139,47 @@ public class VentanaVehiculos extends JFrame {
 	}
 	
 	
-	private void initTabla() {
-
+	private void initTablaVehiculos() {
 		Vector<String> cabeceras = new Vector<String>(Arrays.asList( "ID", "TIPO", "MARCA", "MODELO","PRECIO", "IMAGEN"));
 		modelo = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceras);
 		tabla = new JTable(modelo);
 		tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tabla.getColumnModel().getColumn(5).setCellRenderer(renderImagen);
+	}
+	
+	
+	private void initTablaRepuestos() {
+
+		Vector<String> cabeceraComics = new Vector<String>(Arrays.asList("ID", "Tipo", "Compra", "Venta"));
+		this.modeloDatosRepuestos = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceraComics);
+		this.tabla = new JTable(this.modeloDatosRepuestos);
+		this.tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
 	}
 	
 	private void cargarVehiculos() {
 		modelo.setRowCount(0);
 		
-		for (Vehiculo v : listvehiculos) {
+		for (Vehiculo v : listvehiculosUsu) {
 			this.modelo.addRow( new Object[] {v.getId(), v.getTipo(), v.getMarca(), v.getModelo(), v.getPrecio(), v.getUrl()} );
 		}		
 	}
 	
-	
-	public void leerCSV() {
-		String path = "data/vehiculos.csv";
-		String line = "";
+	private void cargarRepuestos() {
+		modeloDatosRepuestos.setRowCount(0);
 		
-		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-			while((line=br.readLine())!=null) {
-				
-				String[] values = line.split(",");
-			
-				TipoVehiculo tipo = TipoVehiculo.valueOf(values[0]);
-				String modeloVeh = values[1];
-				MarcaVehiculo marca = MarcaVehiculo.valueOf(values[2]);
-				int id = Integer.parseInt(values[3]);
-				int precio = Integer.parseInt(values[4]);
-				String url = values[5];
-				
-				
-				Vehiculo v = new Vehiculo(tipo,marca, modeloVeh, id, precio, url);
-				listvehiculos.add(v);
-				
-			}
-		}catch (FileNotFoundException e){
-			e.printStackTrace();
-		}catch (IOException e){
-			e.printStackTrace();
-		} 
+		for (Repuestos c : repuestosUsu) {
+			this.modeloDatosRepuestos.addRow( new Object[] {c.getId(), c.getTipo(), c.getCompra(), c.getVenta()} );
+		}		
 	}
 	
 	public static void main(String args[]) {
-		ventVe.setTitle("vehiculos");
+		ventVe.setTitle("inventario");
 		ventVe.setSize(700, 700);
 		ventVe.setLocation(550, 150);
 		ventVe.setVisible(true);
 		ventVe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ventVe.setResizable(false);
 	}
-	
-	DefaultTableCellRenderer renderImagen = new DefaultTableCellRenderer() {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-			JLabel label = new JLabel();
-			
-			 for(Vehiculo v: listvehiculos) {
-				 label.setIcon(new ImageIcon(v.getUrl()));
-			 }
-							
-			
-			return label;
-		}
-	};
 	
 	
 	

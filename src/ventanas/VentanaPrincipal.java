@@ -21,8 +21,6 @@ public class VentanaPrincipal extends JFrame{
 	public VentanaPrincipal() {
 		ClaseContenedora cc = new ClaseContenedora();
 		VentanaRegistro vr = new VentanaRegistro();
-		vr.usuarioLogged.setListaRepuestos(cc.sacarRepuestosPorUsuario("Usuario.db", vr.usuarioLogged));
-		vr.usuarioLogged.setListaVehiculos(cc.sacarVehiculosPorUsuario("Usuario.db", vr.usuarioLogged));
 		panelSup = new JPanel();
 		panelSup.setLayout(new BorderLayout());
 		
@@ -31,6 +29,7 @@ public class VentanaPrincipal extends JFrame{
 		JButton bAjustes = new JButton("Ajustes");
 		barra.add(bAjustes);
 		
+		
 		JButton bVehi = new JButton("Vehiculos");
 		barra.add(bVehi);
 		
@@ -38,7 +37,7 @@ public class VentanaPrincipal extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaVehiculos ventVe = new VentanaVehiculos(null);
+				VentanaVehiculos ventVe = new VentanaVehiculos();
 				ventVe.setLocationRelativeTo(null);
 				ventVe.setVisible( true );
 				ventVe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,6 +50,25 @@ public class VentanaPrincipal extends JFrame{
 		
 		JButton bRespuestos = new JButton("Repuestos");
 		barra.add(bRespuestos);
+		
+		JButton bInventario = new JButton("Inventario");
+		barra.add(bInventario);
+		
+		bInventario.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaInventario ventI = new VentanaInventario();
+				ventI.setLocationRelativeTo(null);
+				ventI.setVisible( true );
+				ventI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				ventI.setResizable(false);
+				dispose();	
+			}
+			
+			
+		});
+		
 		
 		panelSup.add(barra, BorderLayout.NORTH);
 		add(panelSup);

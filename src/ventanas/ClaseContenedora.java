@@ -109,6 +109,33 @@ public class ClaseContenedora {
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	//////////// SACAR IDS DE POSESIONES DE UN USUARIO //////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	public ArrayList<Integer> sacarIdsUsuario(String nombredb, Usuario u){
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/bd/"+nombredb);
+			Statement stmt = conn.createStatement();
+			ArrayList<Integer> dev = new ArrayList<>();
+			String sql = "SELECT producto FROM ventas where usuario = '" + u.getNombre() + "'";
+			logger.log(Level.INFO, "Statement: " + sql);
+			ResultSet rs = stmt.executeQuery("SELECT producto FROM ventas where usuario = '" + u.getNombre() + "'");
+			while( rs.next() ) { 
+			int id = rs.getInt("producto");
+			dev.add( id );
+			}
+			rs.close();
+			stmt.close();
+			conn.close(); 
+			return dev;
+			} catch (SQLException e) {
+			System.out.println("No se ha podido cargar el driver de la base de datos");
+			e.printStackTrace();
+			}
+		return null;
+	
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////
 	//////////// SACAR LOS VEHICULOS QUE POSEE UN USUARIO //////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	public ArrayList<Vehiculo> sacarVehiculosPorUsuario(String nombredb, Usuario u){
@@ -231,12 +258,12 @@ public class ClaseContenedora {
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////// FUNCION PARA METER UNA VENTA EN LA BASE DE DATOS //////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
-	public void guardarDBVenta(String nombredb, Usuario usuario, String producto, int precio, String fecha){
+	public void guardarDBVenta(String nombredb, Usuario usuario, int producto, int precio, String fecha){
 		try {
 	
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/bd/"+nombredb);
 			Statement stmt = conn.createStatement();
-			String sql = String.format("INSERT INTO ventas VALUES ('%s', '%s', %d, '%s')", usuario.getNombre(), producto, precio, fecha);
+			String sql = String.format("INSERT INTO ventas VALUES ('%s', %d, %d, '%s')", usuario.getNombre(), producto, precio, fecha);
 			logger.log(Level.INFO, "Statement: " + sql);
 			stmt.executeUpdate(sql);
 			stmt.close();

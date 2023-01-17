@@ -157,8 +157,8 @@ public class VentanaRegistro extends JFrame {
 	}
 
 	public static void main(String args[]) {
-		BD.leerCSVRepuestos("repuestos");
-		BD.leerCSVVehiculos("vehiculos");
+		//BD.leerCSVRepuestos("repuestos");
+		//BD.leerCSVVehiculos("vehiculos");
 		vent.setTitle("Ventana para anyadir nuevo usuario");
 		vent.setSize(1000, 500);
 		vent.setLocation(550, 150);

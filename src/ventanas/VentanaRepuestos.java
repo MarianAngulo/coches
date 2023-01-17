@@ -44,7 +44,7 @@ public class VentanaRepuestos extends JFrame {
 
 	private JToolBar barra;
 	private JToolBar barraAbajo;
-	private static List<Repuestos> repuestos;
+	static List<Repuestos> repuestos;
 	private JTable tablaRepuestos;
 	private DefaultTableModel modeloDatosRepuestos;
 	private JLabel lFoto;
@@ -52,9 +52,11 @@ public class VentanaRepuestos extends JFrame {
 	
 	
 	public VentanaRepuestos() {
-		BD.leerCSVRepuestos("repuestos");
+		//BD.leerCSVRepuestos("repuestos");
 		VentanaRegistro vr = new VentanaRegistro();
 		ClaseContenedora cc = new ClaseContenedora();
+		
+		
 		
 		System.out.println(vr.usuarioLogged.getListaRepuestos());
 		
@@ -128,11 +130,7 @@ public class VentanaRepuestos extends JFrame {
 				if (tablaRepuestos.getSelectedRow() >= 0) {
 					if (vr.usuarioLogged.getDinero() >= repuestos.get(tablaRepuestos.getSelectedRow()).getVenta()) {
 						String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-						cc.guardarDBVenta("Usuario.db", vr.usuarioLogged, repuestos.get(tablaRepuestos.getSelectedRow()).getTipo().toString(), repuestos.get(tablaRepuestos.getSelectedRow()).getVenta(), date);
-						ArrayList<Repuestos> repuestosPers = new ArrayList<Repuestos>();
-						repuestosPers = vr.usuarioLogged.getListaRepuestos();
-						repuestosPers.add(repuestos.get(tablaRepuestos.getSelectedRow()));
-						vr.usuarioLogged.setListaRepuestos(repuestosPers);
+						cc.guardarDBVenta("Usuario.db", vr.usuarioLogged, repuestos.get(tablaRepuestos.getSelectedRow()).getId(), repuestos.get(tablaRepuestos.getSelectedRow()).getVenta(), date);
 						vr.usuarioLogged.setDinero(vr.usuarioLogged.getDinero()-repuestos.get(tablaRepuestos.getSelectedRow()).getVenta());
 						} else {
 						JOptionPane.showMessageDialog(null, "No tienes suficiente dinero para realizar esta compra");
@@ -151,7 +149,7 @@ public class VentanaRepuestos extends JFrame {
 					for (Repuestos r: vr.usuarioLogged.getListaRepuestos()) {
 						if (r.getId() == repuestos.get(tablaRepuestos.getSelectedRow()).getId()) {
 							String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-							cc.guardarDBVenta("Usuario.db", vr.usuarioLogged, repuestos.get(tablaRepuestos.getSelectedRow()).getTipo().toString(), -repuestos.get(tablaRepuestos.getSelectedRow()).getVenta(), date);						
+							cc.guardarDBVenta("Usuario.db", vr.usuarioLogged, repuestos.get(tablaRepuestos.getSelectedRow()).getId(), -repuestos.get(tablaRepuestos.getSelectedRow()).getVenta(), date);						
 							vr.usuarioLogged.setDinero(vr.usuarioLogged.getDinero()+repuestos.get(tablaRepuestos.getSelectedRow()).getCompra());
 							vr.usuarioLogged.getListaRepuestos().remove(r);
 							
