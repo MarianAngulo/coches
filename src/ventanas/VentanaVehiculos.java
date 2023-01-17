@@ -10,8 +10,10 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -19,6 +21,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -29,6 +32,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import clases.MarcaVehiculo;
+import clases.Repuestos;
 import clases.TipoVehiculo;
 import clases.Vehiculo;
 
@@ -46,6 +50,9 @@ public class VentanaVehiculos extends JFrame {
 	
 	
 	public VentanaVehiculos() {
+		
+		VentanaRegistro vr = new VentanaRegistro();
+		ClaseContenedora cc = new ClaseContenedora();
 		
 		listvehiculos= new ArrayList<Vehiculo>();
 		
@@ -82,6 +89,15 @@ public class VentanaVehiculos extends JFrame {
 		botoncomp.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (tabla.getSelectedRow() >= 0) {
+					if (vr.usuarioLogged.getDinero() >= listvehiculos.get(tabla.getSelectedRow()).getPrecio()) {
+						String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+						cc.guardarDBVenta("Usuario.db", vr.usuarioLogged, listvehiculos.get(tabla.getSelectedRow()).getId(), listvehiculos.get(tabla.getSelectedRow()).getPrecio(), date);
+						vr.usuarioLogged.setDinero(vr.usuarioLogged.getDinero()-listvehiculos.get(tabla.getSelectedRow()).getPrecio());
+						} else {
+						JOptionPane.showMessageDialog(null, "No tienes suficiente dinero para realizar esta compra");
+					}
+				}
 			}
 		});
 		
@@ -90,6 +106,17 @@ public class VentanaVehiculos extends JFrame {
 		botonven.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (tabla.getSelectedRow() >= 0) {
+					for (Repuestos r: vr.usuarioLogged.getListaRepuestos()) {
+						if (r.getId() == listvehiculos.get(tabla.getSelectedRow()).getId()) {
+							String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+							cc.guardarDBVenta("Usuario.db", vr.usuarioLogged, listvehiculos.get(tabla.getSelectedRow()).getId(), -listvehiculos.get(tabla.getSelectedRow()).getPrecio(), date);						
+							vr.usuarioLogged.setDinero(vr.usuarioLogged.getDinero()+listvehiculos.get(tabla.getSelectedRow()).getPrecio());
+							vr.usuarioLogged.getListaRepuestos().remove(r);
+							
+						}
+					}
+				}
 			}
 		});
 		
