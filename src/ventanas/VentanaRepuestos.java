@@ -197,8 +197,8 @@ public class VentanaRepuestos extends JFrame {
 	
 	private void iniciarTabla() {
 
-		Vector<String> cabeceraComics = new Vector<String>(Arrays.asList("ID", "Tipo", "Compra", "Venta"));
-		this.modeloDatosRepuestos = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceraComics);
+		Vector<String> cabeceraRepuestos = new Vector<String>(Arrays.asList("ID", "Tipo", "Compra", "Venta"));
+		this.modeloDatosRepuestos = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceraRepuestos);
 		this.tablaRepuestos = new JTable(this.modeloDatosRepuestos);
 		this.tablaRepuestos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
