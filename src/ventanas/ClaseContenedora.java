@@ -77,6 +77,69 @@ public class ClaseContenedora {
 		
 	}
 	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	//////////// SACAR LOS REPUESTOS QUE POSEE UN USUARIO //////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	public ArrayList<Repuestos> sacarRepuestosPorUsuario(String nombredb, Usuario u){
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/bd/"+nombredb);
+			Statement stmt = conn.createStatement();
+			ArrayList<Repuestos> dev = new ArrayList<>();
+			String sql = "SELECT * FROM repuestos where id in (select producto from ventas where usuario = '" + u.getNombre() + "'";
+			logger.log(Level.INFO, "Statement: " + sql);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM repuestos where id in (select producto from ventas where usuario = '" + u.getNombre() + "'");
+			while( rs.next() ) { 
+				TipoRepuesto tipo = TipoRepuesto.valueOf(rs.getString("tipoRepuestos"));
+				int id = rs.getInt("id");
+				int compra = rs.getInt("precioCompra");
+				int venta = rs.getInt("precioVenta");
+				String url = rs.getString("url");
+				dev.add( new Repuestos( id, tipo, compra, venta, url) );
+			}
+			rs.close();
+			stmt.close();
+			conn.close(); 
+			return dev;
+			} catch (SQLException e) {
+			System.out.println("No se ha podido cargar el driver de la base de datos");
+			e.printStackTrace();
+			}
+			return null;
+		
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	//////////// SACAR LOS VEHICULOS QUE POSEE UN USUARIO //////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	public ArrayList<Vehiculo> sacarVehiculosPorUsuario(String nombredb, Usuario u){
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/bd/"+nombredb);
+			Statement stmt = conn.createStatement();
+			ArrayList<Vehiculo> dev = new ArrayList<>();
+			String sql = "SELECT * FROM vehiculos where id in (select producto from ventas where usuario = '" + u.getNombre() + "'";
+			logger.log(Level.INFO, "Statement: " + sql);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM vehiculos where id in (select producto from ventas where usuario = '" + u.getNombre() + "'");
+			while( rs.next() ) { 
+				TipoVehiculo tipo = TipoVehiculo.valueOf(rs.getString("tipoVehiculo"));
+				String modelo = rs.getString("modelo");
+				MarcaVehiculo marca = MarcaVehiculo.valueOf(rs.getString("marcaVehiculo"));
+				int id = rs.getInt("id");
+				int precio = rs.getInt("precio");
+				String url = rs.getString("url");
+				dev.add( new Vehiculo( tipo, marca, modelo, id, precio, url) );
+			}
+			rs.close();
+			stmt.close();
+			conn.close(); 
+			return dev;
+			} catch (SQLException e) {
+			System.out.println("No se ha podido cargar el driver de la base de datos");
+			e.printStackTrace();
+			}
+			return null;
+		
+	}
+	
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////// FUNCION PARA METER UN USUARIO EN LA BASE DE DATOS //////////////////////////////////////

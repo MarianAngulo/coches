@@ -19,6 +19,10 @@ public class VentanaPrincipal extends JFrame{
 	private JToolBar barra;
 	
 	public VentanaPrincipal() {
+		ClaseContenedora cc = new ClaseContenedora();
+		VentanaRegistro vr = new VentanaRegistro();
+		vr.usuarioLogged.setListaRepuestos(cc.sacarRepuestosPorUsuario("Usuario.db", vr.usuarioLogged));
+		vr.usuarioLogged.setListaVehiculos(cc.sacarVehiculosPorUsuario("Usuario.db", vr.usuarioLogged));
 		panelSup = new JPanel();
 		panelSup.setLayout(new BorderLayout());
 		

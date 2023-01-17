@@ -35,6 +35,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import bd.BD;
 import clases.Repuestos;
 import clases.TipoRepuesto;
 
@@ -51,6 +52,7 @@ public class VentanaRepuestos extends JFrame {
 	
 	
 	public VentanaRepuestos() {
+		BD.leerCSVRepuestos("repuestos");
 		VentanaRegistro vr = new VentanaRegistro();
 		ClaseContenedora cc = new ClaseContenedora();
 		
@@ -127,7 +129,10 @@ public class VentanaRepuestos extends JFrame {
 					if (vr.usuarioLogged.getDinero() >= repuestos.get(tablaRepuestos.getSelectedRow()).getVenta()) {
 						String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 						cc.guardarDBVenta("Usuario.db", vr.usuarioLogged, repuestos.get(tablaRepuestos.getSelectedRow()).getTipo().toString(), repuestos.get(tablaRepuestos.getSelectedRow()).getVenta(), date);
-						vr.usuarioLogged.getListaRepuestos().add(repuestos.get(tablaRepuestos.getSelectedRow()));
+						ArrayList<Repuestos> repuestosPers = new ArrayList<Repuestos>();
+						repuestosPers = vr.usuarioLogged.getListaRepuestos();
+						repuestosPers.add(repuestos.get(tablaRepuestos.getSelectedRow()));
+						vr.usuarioLogged.setListaRepuestos(repuestosPers);
 						vr.usuarioLogged.setDinero(vr.usuarioLogged.getDinero()-repuestos.get(tablaRepuestos.getSelectedRow()).getVenta());
 						} else {
 						JOptionPane.showMessageDialog(null, "No tienes suficiente dinero para realizar esta compra");
