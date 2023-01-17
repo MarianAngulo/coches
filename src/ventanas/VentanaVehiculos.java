@@ -99,26 +99,7 @@ public class VentanaVehiculos extends JFrame {
 					}
 				}
 			}
-		});
-		
-		JButton botonven = new JButton("Vender");
-		botonesSup.add(botonven);
-		botonven.addActionListener( new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (tabla.getSelectedRow() >= 0) {
-					for (Repuestos r: vr.usuarioLogged.getListaRepuestos()) {
-						if (r.getId() == listvehiculos.get(tabla.getSelectedRow()).getId()) {
-							String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-							cc.guardarDBVenta("Usuario.db", vr.usuarioLogged, listvehiculos.get(tabla.getSelectedRow()).getId(), -listvehiculos.get(tabla.getSelectedRow()).getPrecio(), date);						
-							vr.usuarioLogged.setDinero(vr.usuarioLogged.getDinero()+listvehiculos.get(tabla.getSelectedRow()).getPrecio());
-							vr.usuarioLogged.getListaRepuestos().remove(r);
-							
-						}
-					}
-				}
-			}
-		});
+		});		
 		
 		JButton botonv = new JButton("Volver");
 		botonesInf.add(botonv);
@@ -208,28 +189,4 @@ public class VentanaVehiculos extends JFrame {
 		}
 	};
 	
-	
-	
-	/*
-	private void visualizarVehiculos() {//Estructura de como se tendria que visualizar sin tener funcionalidad Base de datos
-		Vector<String> cabeceras = new Vector<String>( Arrays.asList( "Id", "Tipo", "Modelo", "Precio" ) );
-		modelo = new DefaultTableModel( 
-			new Vector<Vector<Object>>(),
-			cabeceras 
-		);
-		//cargarVehiculos(); Faltaria esta funcionalidad
-		for (Vehiculo v : listvehiculos) {
-			modelo.addRow( new Object[] { v.getId(), v.getTipo(), v.getModelo(), v.getPrecio(),  } );
-		}
-		tabla.setModel( modelo );
-		
-		tabla.getColumnModel().getColumn(0).setMinWidth(40);
-		tabla.getColumnModel().getColumn(0).setMaxWidth(40);
-		tabla.getColumnModel().getColumn(1).setMinWidth(80);
-		tabla.getColumnModel().getColumn(1).setMaxWidth(80);
-		tabla.getColumnModel().getColumn(3).setMinWidth(60);
-		tabla.getColumnModel().getColumn(3).setMaxWidth(60);
-	}
-	
-	*/
 }
