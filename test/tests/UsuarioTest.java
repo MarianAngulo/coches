@@ -18,7 +18,7 @@ public class UsuarioTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		usuario = new Usuario(nombre,contrasena,admin,dinero);
+		usuario = new Usuario(nombre,contrasena,admin,dinero, null, null);
 	}
 
 	@After

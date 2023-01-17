@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class Venta {
 	private Usuario usuario;
-	private String producto;
+	private int producto;
 	private float precio;
 	private Date fecha;
 	
-	public Venta(Usuario usuario, String producto, float precio, Date fecha) {
+	public Venta(Usuario usuario, int producto, float precio, Date fecha) {
 		this.usuario = usuario;
 		this.producto = producto;
 		this.precio = precio;
@@ -23,11 +23,11 @@ public class Venta {
 		this.usuario = usuario;
 	}
 
-	public String getProducto() {
+	public int getProducto() {
 		return producto;
 	}
 
-	public void setProducto(String producto) {
+	public void setProducto(int producto) {
 		this.producto = producto;
 	}
 

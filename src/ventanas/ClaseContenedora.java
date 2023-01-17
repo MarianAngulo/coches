@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.sql.Connection;
+import java.sql.*;
+import java.util.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,9 +15,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import clases.MarcaVehiculo;
+import clases.Repuestos;
 import clases.TipoRepuesto;
 import clases.TipoVehiculo;
 import clases.Usuario;
+import clases.Vehiculo;
+import clases.Venta;
 
 public class ClaseContenedora {
 	private static Logger logger = Logger.getLogger("ClaseContenedora");
@@ -58,7 +63,7 @@ public class ClaseContenedora {
 				String contrasena = rs.getString("contrasena");
 				int admin = rs.getInt("admin");
 				int dinero = rs.getInt("dinero");
-				dev.add( new Usuario( nombre, contrasena, admin, dinero) );
+				dev.add( new Usuario( nombre, contrasena, admin, dinero, null, null) );
 			}
 			rs.close();
 			stmt.close();
@@ -161,6 +166,29 @@ public class ClaseContenedora {
 	}
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////// FUNCION PARA METER UNA VENTA EN LA BASE DE DATOS //////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	public void guardarDBVenta(String nombredb, Usuario usuario, String producto, int precio, String fecha){
+		try {
+	
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/bd/"+nombredb);
+			Statement stmt = conn.createStatement();
+			String sql = String.format("INSERT INTO ventas VALUES ('%s', '%s', %d, '%s')", usuario.getNombre(), producto, precio, fecha);
+			logger.log(Level.INFO, "Statement: " + sql);
+			stmt.executeUpdate(sql);
+			stmt.close();
+			Statement stmt2 = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM ventas");
+			stmt2.close();
+			rs.close();
+			conn.close(); 
+			} catch (SQLException e) {
+			System.out.println("No se ha podido cargar el driver de la base de datos");
+			}
+	
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////// FUNCION PARA CAMBIAR LA CONTRASEÑA DEL USUARIO SELECCIONADO EN LA BD ///////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	public void cambiarContrasenaBD(String nombredb,String nombre, String contrasena, String nuevaContra){
@@ -216,7 +244,7 @@ public class ClaseContenedora {
 			ResultSet rs = stmt.executeQuery( sql );
 			if (rs.next()) {
 				Usuario usuario = new Usuario(
-					rs.getString("nombre"), rs.getString("contrasena"), rs.getInt("admin"), rs.getInt("dinero") );
+					rs.getString("nombre"), rs.getString("contrasena"), rs.getInt("admin"), rs.getInt("dinero"), new ArrayList<Vehiculo>(), new ArrayList<Repuestos>() );
 				rs.close();
 				return usuario;
 			} else {

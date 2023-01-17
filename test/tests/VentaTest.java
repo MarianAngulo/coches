@@ -15,7 +15,7 @@ public class VentaTest {
 
 	private Venta venta;
 	private Usuario usuario;
-	private String producto = "producto";
+	private int producto = 1;
 	private float precio = 0.0f;
 	private Date fecha = new Date();
 
@@ -46,7 +46,7 @@ public class VentaTest {
 
 	@Test
 	public void testSetProducto() {
-		String prod = "producto";
+		int prod = 1;
 		venta.setProducto(prod);
 		
 		assertEquals(producto, venta.getProducto());

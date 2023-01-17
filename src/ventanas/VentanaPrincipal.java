@@ -61,7 +61,8 @@ public class VentanaPrincipal extends JFrame{
 				ventRes.setLocation(550, 150);
 				ventRes.setVisible( true );
 				ventRes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				ventRes.setResizable(false);				
+				ventRes.setResizable(false);		
+				dispose();
 				
 			}
 		});

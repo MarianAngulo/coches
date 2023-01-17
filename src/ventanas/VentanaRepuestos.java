@@ -10,8 +10,10 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -22,6 +24,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -48,6 +51,10 @@ public class VentanaRepuestos extends JFrame {
 	
 	
 	public VentanaRepuestos() {
+		VentanaRegistro vr = new VentanaRegistro();
+		ClaseContenedora cc = new ClaseContenedora();
+		
+		System.out.println(vr.usuarioLogged.getListaRepuestos());
 		
 		repuestos = new ArrayList<Repuestos>();		
 		
@@ -101,13 +108,52 @@ public class VentanaRepuestos extends JFrame {
 				if (!e.getValueIsAdjusting()) {
 					if (tablaRepuestos.getSelectedRow() >= 0 && tablaRepuestos.getSelectedRow() < repuestos.size()) {
 						String urlFoto = repuestos.get(tablaRepuestos.getSelectedRow()).getUrl();
-						//System.out.println(url);
+						System.out.println(urlFoto);
 						refrescaFoto( urlFoto );
 					} else {
 						refrescaFoto( null );
 					}
 					
 				}
+				
+			}
+		});
+		
+		comprar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (tablaRepuestos.getSelectedRow() >= 0) {
+					if (vr.usuarioLogged.getDinero() >= repuestos.get(tablaRepuestos.getSelectedRow()).getVenta()) {
+						String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+						cc.guardarDBVenta("Usuario.db", vr.usuarioLogged, repuestos.get(tablaRepuestos.getSelectedRow()).getTipo().toString(), repuestos.get(tablaRepuestos.getSelectedRow()).getVenta(), date);
+						vr.usuarioLogged.getListaRepuestos().add(repuestos.get(tablaRepuestos.getSelectedRow()));
+						vr.usuarioLogged.setDinero(vr.usuarioLogged.getDinero()-repuestos.get(tablaRepuestos.getSelectedRow()).getVenta());
+						} else {
+						JOptionPane.showMessageDialog(null, "No tienes suficiente dinero para realizar esta compra");
+					}
+				}
+
+				
+			}
+		});
+		
+		vender.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (tablaRepuestos.getSelectedRow() >= 0) {
+					for (Repuestos r: vr.usuarioLogged.getListaRepuestos()) {
+						if (r.getId() == repuestos.get(tablaRepuestos.getSelectedRow()).getId()) {
+							String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+							cc.guardarDBVenta("Usuario.db", vr.usuarioLogged, repuestos.get(tablaRepuestos.getSelectedRow()).getTipo().toString(), -repuestos.get(tablaRepuestos.getSelectedRow()).getVenta(), date);						
+							vr.usuarioLogged.setDinero(vr.usuarioLogged.getDinero()+repuestos.get(tablaRepuestos.getSelectedRow()).getCompra());
+							vr.usuarioLogged.getListaRepuestos().remove(r);
+							
+						}
+					}
+				}
+
 				
 			}
 		});
@@ -138,7 +184,7 @@ public class VentanaRepuestos extends JFrame {
 			Image img = ImageIO.read(getClass().getResource(url));
 			lFoto.setIcon(new ImageIcon(img));
 			} catch (Exception ex) {
-					System.out.println(ex);
+				System.out.println(ex);
 				}
 			lFoto.repaint();
 		}
