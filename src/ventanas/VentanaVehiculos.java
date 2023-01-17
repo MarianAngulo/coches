@@ -149,9 +149,9 @@ public class VentanaVehiculos extends JFrame {
 			e.printStackTrace();
 		} 
 	}
-	
+	/*
 	public static void main(String args[]) {
-		ventVe.setTitle("repuestos");
+		ventVe.setTitle("vehiculos");
 		ventVe.setSize(700, 700);
 		ventVe.setLocation(550, 150);
 		ventVe.setVisible(true);

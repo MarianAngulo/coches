@@ -34,7 +34,7 @@ public class VentanaPrincipal extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaVehiculos ventVe = new VentanaVehiculos();
+				VentanaVehiculos ventVe = new VentanaVehiculos(null);
 				ventVe.setLocationRelativeTo(null);
 				ventVe.setVisible( true );
 				ventVe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
