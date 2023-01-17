@@ -55,15 +55,13 @@ public class VentanaPrincipal extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaRepuestos ventRes = new VentanaRepuestos(null);
+				VentanaRepuestos ventRes = new VentanaRepuestos();
 				ventRes.setTitle("Repuestos");
 				ventRes.setSize(700, 700);
-				ventRes.setLocationRelativeTo(null);
+				ventRes.setLocation(550, 150);
 				ventRes.setVisible( true );
 				ventRes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				ventRes.setResizable(false);
-				dispose();
-				
+				ventRes.setResizable(false);				
 				
 			}
 		});

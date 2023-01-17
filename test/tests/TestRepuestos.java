@@ -15,10 +15,11 @@ public class TestRepuestos {
 	private TipoRepuesto tipo = TipoRepuesto.MOTOR;
 	private int compra = 24;
 	private int venta = 15;
+	private String url = "";
 
 	@Before
 	public void setUp() throws Exception {
-		repuestos = new Repuestos(id, tipo, compra, venta);
+		repuestos = new Repuestos(id, tipo, compra, venta, url);
 	}
 
 	@After

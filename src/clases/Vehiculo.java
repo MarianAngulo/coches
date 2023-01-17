@@ -6,13 +6,15 @@ public class Vehiculo {
 	private MarcaVehiculo marca;
 	private int id;
 	private int precio;
+	private String url;
 	
-	public Vehiculo(TipoVehiculo tipo, MarcaVehiculo marca, String modelo,int id, int precio) {
+	public Vehiculo(TipoVehiculo tipo, MarcaVehiculo marca, String modelo,int id, int precio, String url) {
 		this.tipo = tipo;
 		this.modelo = modelo;
 		this.marca = marca;
 		this.id = id;
 		this.precio = precio;
+		this.url = url;
 	}
 
 	public TipoVehiculo getTipo() {
@@ -58,5 +60,14 @@ public class Vehiculo {
 
 	public void setMarca(MarcaVehiculo marca) {
 		this.marca = marca;
+	}
+	
+	public String getUrl() {
+		return url;
+	}
+
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 }

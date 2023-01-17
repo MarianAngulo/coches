@@ -7,13 +7,15 @@ public class Repuestos {
 	private int Id;
 	private int compra;
 	private int venta;
+	private String url;
 	
 	
-	public Repuestos(int Id, TipoRepuesto tipo,  int compra, int venta) {
+	public Repuestos(int Id, TipoRepuesto tipo,  int compra, int venta, String url) {
 		this.Id = Id;
 		this.tipo = tipo;
 		this.compra = compra;
 		this.venta = venta;
+		this.url = url;
 	}
 
 	public TipoRepuesto getTipo() {
@@ -51,6 +53,15 @@ public class Repuestos {
 
 	public void setVenta(int venta) {
 		this.venta = venta;
+	}
+	
+	public String getUrl() {
+		return url;
+	}
+
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 }

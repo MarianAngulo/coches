@@ -1,9 +1,9 @@
-MOTOR,1,8000,15000
-NEUMATICO,2,2000,3000
-MOTOR,3,3000,9000
-CAJA_DE_CAMBIOS,4,500,2000
-TRANSMISION,5,1000,4000
-NEUMATICO,6,500,1000
-PARABRISAS,7,300,500
-TRANSMISION,8,2000,5000
-CAJA_DE_CAMBIOS,9,100,400
+MOTOR,1,8000,15000, img/repuestos/motor1.jpg
+NEUMATICO,2,2000,3000, img/repuestos/neumatico1.jpg
+MOTOR,3,3000,9000, img/repuestos/motor2.jpg
+CAJA_DE_CAMBIOS,4,500,2000, img/repuestos/caja_de_cambios1.jpg
+TRANSMISION,5,1000,4000, img/repuestos/transmision1.jpg
+NEUMATICO,6,500,1000, img/repuestos/neumatico1.jpg
+PARABRISAS,7,300,500, img/repuestos/parabrisas.jpg
+TRANSMISION,8,2000,5000, img/repuestos/transmision2.jpg
+CAJA_DE_CAMBIOS,9,100,400, img/repuestos/caja_de_cambios2.jpg

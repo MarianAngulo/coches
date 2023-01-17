@@ -1,7 +1,9 @@
 package ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -13,7 +15,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
+import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,6 +28,8 @@ import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import clases.Repuestos;
@@ -37,18 +43,17 @@ public class VentanaRepuestos extends JFrame {
 	private static List<Repuestos> repuestos;
 	private JTable tablaRepuestos;
 	private DefaultTableModel modeloDatosRepuestos;
+	private JLabel lFoto;
+
 	
-	private static VentanaRepuestos ventRes = new VentanaRepuestos(repuestos);
 	
-	
-	public VentanaRepuestos(List<Repuestos> repuestos) {
+	public VentanaRepuestos() {
 		
-		repuestos = new ArrayList<Repuestos>();
-		this.repuestos = repuestos;
+		repuestos = new ArrayList<Repuestos>();		
 		
-		this.leerCSV();
-		this.iniciarTabla();
-		this.cargarRepuestos();
+		leerCSV();
+		iniciarTabla();
+		cargarRepuestos();
 		
 		JScrollPane scrollPaneRepuestos = new JScrollPane(this.tablaRepuestos);
 		scrollPaneRepuestos.setBorder(new TitledBorder("Repuestos"));
@@ -63,6 +68,10 @@ public class VentanaRepuestos extends JFrame {
 		panelSup.setLayout(new BorderLayout());
 		getContentPane().add( panelSup, BorderLayout.NORTH );
 		
+		JPanel panelCentro = new JPanel();
+		panelCentro.setLayout(new BorderLayout());
+		getContentPane().add( panelCentro, BorderLayout.CENTER );
+		
 		JPanel panelSouth = new JPanel();
 		panelSouth.setLayout(new BorderLayout());
 		getContentPane().add( panelSouth, BorderLayout.SOUTH );
@@ -76,19 +85,37 @@ public class VentanaRepuestos extends JFrame {
 		barra.add(vender);
 		barraAbajo.add(volver);
 		
+		lFoto = new JLabel();
 	
 		panelSup.add(barra, BorderLayout.NORTH);
 		panelSouth.add(barraAbajo, BorderLayout.SOUTH);
+		panelCentro.add(lFoto, BorderLayout.CENTER);
 		panelSup.add(scrollPaneRepuestos, BorderLayout.CENTER);
 		
+		lFoto.setPreferredSize( new Dimension( 200, 200 ) );
 		
-		
+		tablaRepuestos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (!e.getValueIsAdjusting()) {
+					if (tablaRepuestos.getSelectedRow() >= 0 && tablaRepuestos.getSelectedRow() < repuestos.size()) {
+						String urlFoto = repuestos.get(tablaRepuestos.getSelectedRow()).getUrl();
+						//System.out.println(url);
+						refrescaFoto( urlFoto );
+					} else {
+						refrescaFoto( null );
+					}
+					
+				}
+				
+			}
+		});
 		
 		volver.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ventRes.setVisible( false );
 				VentanaPrincipal vp = new VentanaPrincipal();
 				vp.setSize(700,700);
 				vp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -100,6 +127,22 @@ public class VentanaRepuestos extends JFrame {
 		});
 	}
 	
+	
+	// Refresca la foto 
+	private void refrescaFoto( String url ) {
+		if (url==null) {
+			lFoto.setIcon( null );
+			lFoto.repaint();
+		} else {
+			try {
+			Image img = ImageIO.read(getClass().getResource(url));
+			lFoto.setIcon(new ImageIcon(img));
+			} catch (Exception ex) {
+					System.out.println(ex);
+				}
+			lFoto.repaint();
+		}
+	}
 	
 	private void iniciarTabla() {
 
@@ -113,7 +156,7 @@ public class VentanaRepuestos extends JFrame {
 	private void cargarRepuestos() {
 		this.modeloDatosRepuestos.setRowCount(0);
 		
-		for (Repuestos c : this.repuestos) {
+		for (Repuestos c : repuestos) {
 			this.modeloDatosRepuestos.addRow( new Object[] {c.getId(), c.getTipo(), c.getCompra(), c.getVenta()} );
 		}		
 	}
@@ -133,8 +176,9 @@ public class VentanaRepuestos extends JFrame {
 				int id = Integer.parseInt(values[1]);
 				int compra = Integer.parseInt(values[2]);
 				int venta = Integer.parseInt(values[3]);
+				String url = values[4];
 				
-				Repuestos r = new Repuestos(id,motor,compra,venta);
+				Repuestos r = new Repuestos(id,motor,compra,venta, url);
 				repuestos.add(r);
 				
 			}
@@ -146,7 +190,9 @@ public class VentanaRepuestos extends JFrame {
 	}
 	
 
+	
 	public static void main(String args[]) {
+		VentanaRegistro ventRes = new VentanaRegistro();
 		ventRes.setTitle("repuestos");
 		ventRes.setSize(700, 700);
 		ventRes.setLocation(550, 150);

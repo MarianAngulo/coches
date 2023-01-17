@@ -137,9 +137,10 @@ public class VentanaVehiculos extends JFrame {
 				MarcaVehiculo marca = MarcaVehiculo.valueOf(values[2]);
 				int id = Integer.parseInt(values[3]);
 				int precio = Integer.parseInt(values[4]);
+				String url = values[5];
 				
 				
-				Vehiculo v = new Vehiculo(tipo,marca, modeloVeh, id, precio);
+				Vehiculo v = new Vehiculo(tipo,marca, modeloVeh, id, precio, url);
 				listvehiculos.add(v);
 				
 			}
@@ -149,7 +150,7 @@ public class VentanaVehiculos extends JFrame {
 			e.printStackTrace();
 		} 
 	}
-	/*
+	
 	public static void main(String args[]) {
 		ventVe.setTitle("vehiculos");
 		ventVe.setSize(700, 700);
@@ -179,7 +180,7 @@ public class VentanaVehiculos extends JFrame {
 		tabla.getColumnModel().getColumn(1).setMaxWidth(80);
 		tabla.getColumnModel().getColumn(3).setMinWidth(60);
 		tabla.getColumnModel().getColumn(3).setMaxWidth(60);
-	}*/
+	}
 	
-	
+	*/
 }

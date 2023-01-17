@@ -17,10 +17,11 @@ public class TestVehiculo {
 	private String modelo = "M2";
 	private int id = 23;
 	private int precio = 2000;
+	private String url = "";
 	
 	@Before
 	public void setUp() throws Exception {
-		vehiculo = new Vehiculo(tipo, marca, modelo, id, precio);
+		vehiculo = new Vehiculo(tipo, marca, modelo, id, precio, url);
 	}
 
 	@After

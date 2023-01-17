@@ -35,7 +35,8 @@ public class BD {
 				String modelo = values[1];
 				MarcaVehiculo marca = MarcaVehiculo.valueOf(values[2]);
 				int precio = Integer. parseInt(values[4]);
-				claseContenedora.guardarDBVehiculo(bd, id, tipo, modelo, marca, precio);			
+				String url = values[5];
+				claseContenedora.guardarDBVehiculo(bd, id, tipo, modelo, marca, precio, url);			
 			}
 		}catch (FileNotFoundException e){
 			e.printStackTrace();
@@ -58,7 +59,8 @@ public class BD {
 				TipoRepuesto tipo = TipoRepuesto.valueOf(values[0]);
 				int compra = Integer. parseInt(values[2]);
 				int venta = Integer. parseInt(values[3]);
-				claseContenedora.guardarDBRepuesto(bd, id, tipo, compra, venta);			
+				String url = values[4];
+				claseContenedora.guardarDBRepuesto(bd, id, tipo, compra, venta, url);			
 			}
 		}catch (FileNotFoundException e){
 			e.printStackTrace();

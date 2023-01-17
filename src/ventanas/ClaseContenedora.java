@@ -117,12 +117,12 @@ public class ClaseContenedora {
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////// FUNCION PARA METER UN VEHICULO EN LA BASE DE DATOS //////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
-	public void guardarDBVehiculo(String nombredb, int id, TipoVehiculo tipo, String modelo, MarcaVehiculo marca, int precio){
+	public void guardarDBVehiculo(String nombredb, int id, TipoVehiculo tipo, String modelo, MarcaVehiculo marca, int precio, String url){
 		try {
 			
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/bd/"+nombredb);
 			Statement stmt = conn.createStatement();
-			String sql = String.format("INSERT INTO vehiculos VALUES ( %d, '%s', '%s', '%s', %d)", id, tipo, modelo, marca, precio);
+			String sql = String.format("INSERT INTO vehiculos VALUES ( %d, '%s', '%s', '%s', %d, '%s')", id, tipo, modelo, marca, precio, url);
 			logger.log(Level.INFO, "Statement: " + sql);
 			stmt.executeUpdate(sql);
 			stmt.close();
@@ -140,12 +140,12 @@ public class ClaseContenedora {
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////// FUNCION PARA METER UN REPUESTO EN LA BASE DE DATOS //////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
-	public void guardarDBRepuesto(String nombredb, int id, TipoRepuesto tipo, int compra, int venta){
+	public void guardarDBRepuesto(String nombredb, int id, TipoRepuesto tipo, int compra, int venta, String url){
 		try {
 			
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:src/bd/"+nombredb);
 			Statement stmt = conn.createStatement();
-			String sql = String.format("INSERT INTO repuestos VALUES ( %d, '%s', %d, %d)", id, tipo, compra, venta);
+			String sql = String.format("INSERT INTO repuestos VALUES ( %d, '%s', %d, %d, '%s')", id, tipo, compra, venta, url);
 			logger.log(Level.INFO, "Statement: " + sql);
 			stmt.executeUpdate(sql);
 			stmt.close();
