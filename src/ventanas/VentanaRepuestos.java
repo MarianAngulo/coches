@@ -47,18 +47,18 @@ public class VentanaRepuestos extends JFrame {
 	static List<Repuestos> repuestos;
 	private JTable tablaRepuestos;
 	private DefaultTableModel modeloDatosRepuestos;
-	private JLabel lFoto;
+	//private JLabel lFoto;
 
 	
 	
 	public VentanaRepuestos() {
 		//BD.leerCSVRepuestos("repuestos");
 		VentanaRegistro vr = new VentanaRegistro();
-		ClaseContenedora cc = new ClaseContenedora();
+		//ClaseContenedora cc = new ClaseContenedora();
 		
 		
 		
-		System.out.println(vr.usuarioLogged.getListaRepuestos());
+		//System.out.println(vr.usuarioLogged.getListaRepuestos());
 		
 		repuestos = new ArrayList<Repuestos>();		
 		
@@ -79,9 +79,9 @@ public class VentanaRepuestos extends JFrame {
 		panelSup.setLayout(new BorderLayout());
 		getContentPane().add( panelSup, BorderLayout.NORTH );
 		
-		JPanel panelCentro = new JPanel();
+		/**JPanel panelCentro = new JPanel();
 		panelCentro.setLayout(new BorderLayout());
-		getContentPane().add( panelCentro, BorderLayout.CENTER );
+		getContentPane().add( panelCentro, BorderLayout.CENTER );**/
 		
 		JPanel panelSouth = new JPanel();
 		panelSouth.setLayout(new BorderLayout());
@@ -96,16 +96,16 @@ public class VentanaRepuestos extends JFrame {
 		barra.add(vender);
 		barraAbajo.add(volver);
 		
-		lFoto = new JLabel();
+		//lFoto = new JLabel();
 	
 		panelSup.add(barra, BorderLayout.NORTH);
 		panelSouth.add(barraAbajo, BorderLayout.SOUTH);
-		panelCentro.add(lFoto, BorderLayout.CENTER);
+		//panelCentro.add(lFoto, BorderLayout.CENTER);
 		panelSup.add(scrollPaneRepuestos, BorderLayout.CENTER);
 		
-		lFoto.setPreferredSize( new Dimension( 200, 200 ) );
+		//lFoto.setPreferredSize( new Dimension( 200, 200 ) );
 		
-		tablaRepuestos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+		/**tablaRepuestos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
@@ -121,9 +121,9 @@ public class VentanaRepuestos extends JFrame {
 				}
 				
 			}
-		});
+		});**/
 		
-		comprar.addActionListener(new ActionListener() {
+		/**comprar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -161,7 +161,7 @@ public class VentanaRepuestos extends JFrame {
 
 				
 			}
-		});
+		});**/
 		
 		volver.addActionListener(new ActionListener() {
 
@@ -180,7 +180,7 @@ public class VentanaRepuestos extends JFrame {
 	
 	
 	// Refresca la foto 
-	private void refrescaFoto( String url ) {
+	/**private void refrescaFoto( String url ) {
 		if (url==null) {
 			lFoto.setIcon( null );
 			lFoto.repaint();
@@ -193,7 +193,7 @@ public class VentanaRepuestos extends JFrame {
 				}
 			lFoto.repaint();
 		}
-	}
+	}**/
 	
 	private void iniciarTabla() {
 

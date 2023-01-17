@@ -53,6 +53,7 @@ public class VentanaAdmin extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				VentanaRegistro vr = new VentanaRegistro();
 				vr.setSize(1000, 500);
+				vr.setLocation(550, 150);
 				vr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				vr.setVisible(true);
 				dispose();
@@ -65,6 +66,7 @@ public class VentanaAdmin extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				VentanaAlmacen va = new VentanaAlmacen();
 				va.setSize(600, 600);
+				va.setLocation(550, 150);
 				va.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				va.setVisible(true);
 				dispose();
@@ -77,6 +79,7 @@ public class VentanaAdmin extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				VentanaUsuarios vu = new VentanaUsuarios();
 				vu.setSize(600, 600);
+				vu.setLocation(550, 150);
 				vu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				vu.setVisible(true);
 				dispose();

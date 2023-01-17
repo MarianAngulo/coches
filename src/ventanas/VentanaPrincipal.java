@@ -54,7 +54,7 @@ public class VentanaPrincipal extends JFrame{
 		JButton bInventario = new JButton("Inventario");
 		barra.add(bInventario);
 		
-		bInventario.addActionListener(new ActionListener() {
+		/**bInventario.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -67,7 +67,7 @@ public class VentanaPrincipal extends JFrame{
 			}
 			
 			
-		});
+		});**/
 		
 		
 		panelSup.add(barra, BorderLayout.NORTH);
@@ -96,6 +96,7 @@ public class VentanaPrincipal extends JFrame{
 				VentanaAjustes ventConfig = new VentanaAjustes();
 				ventConfig.setTitle("Configuracion");
 				ventConfig.setSize(500, 600);
+				ventConfig.setLocation(550, 150);
 				ventConfig.setLocationRelativeTo(null);
 				ventConfig.setVisible( true );
 				ventConfig.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -110,7 +111,7 @@ public class VentanaPrincipal extends JFrame{
 		VentanaPrincipal vent = new VentanaPrincipal();
 		vent.setTitle("Ventana principal");
 		vent.setSize(1000, 500);
-		vent.setLocation(550, 300);
+		vent.setLocation(550, 150);
 		vent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		vent.setResizable(false);
 	}

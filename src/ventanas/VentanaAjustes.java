@@ -65,6 +65,7 @@ public class VentanaAjustes extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				VentanaPrincipal vp = new VentanaPrincipal();
 				vp.setSize(700,700);
+				vp.setLocation(550, 150);
 				vp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				vp.setLocationRelativeTo(null);
 				vp.setVisible(true);
@@ -86,6 +87,7 @@ public class VentanaAjustes extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				VentanaCuenta vc = new VentanaCuenta(/*VentanaRegistro.u*/);
 				vc.setSize(500, 600);
+				vc.setLocation(550, 150);
 				vc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				vc.setVisible(true);
 				dispose();
@@ -98,6 +100,7 @@ public class VentanaAjustes extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				VentanaRegistro vr = new VentanaRegistro();
 				vr.setSize(1000, 500);
+				vr.setLocation(550, 150);
 				vr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				vr.setVisible(true);
 				dispose();

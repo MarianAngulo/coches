@@ -102,6 +102,7 @@ public class VentanaRegistro extends JFrame {
 								usuarioLogged = u;
 								VentanaPrincipal vp = new VentanaPrincipal();
 								vp.setSize(700, 700);
+								vp.setLocation(550, 150);
 								vp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 								vp.setVisible(true);
 								dispose();

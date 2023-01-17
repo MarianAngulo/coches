@@ -105,6 +105,7 @@ public class VentanaAlmacen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				VentanaAdmin va = new VentanaAdmin();
 				va.setSize(600, 600);
+				va.setLocation(550, 150);
 				va.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				va.setVisible(true);
 				dispose();
