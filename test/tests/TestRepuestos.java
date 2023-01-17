@@ -62,6 +62,18 @@ public class TestRepuestos {
 	}
 
 	@Test
+	public void testGetUrl() {
+		assertEquals(url, repuestos.getUrl());
+	}
+
+	@Test
+	public void testSetUrl() {
+		String url2 = "img/repuestos/motor1.jpg";
+		repuestos.setUrl(url2);
+		assertEquals(url2, repuestos.getUrl());
+	}
+	
+	@Test
 	public void testGetCompra() {
 		assertEquals(compra, repuestos.getCompra(),0);
 		

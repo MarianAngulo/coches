@@ -17,7 +17,7 @@ public class TestVehiculo {
 	private String modelo = "M2";
 	private int id = 23;
 	private int precio = 2000;
-	private String url = "";
+	private String url = "img/bmw.png";
 	
 	@Before
 	public void setUp() throws Exception {
@@ -37,6 +37,7 @@ public class TestVehiculo {
 		assertEquals(marca, MarcaVehiculo.valueOf("BMW"));
 		assertEquals(modelo, vehiculo.getModelo());
 		assertEquals(precio, vehiculo.getPrecio(),0.0f);
+		assertEquals(url, vehiculo.getUrl());
 	}
 
 	@Test
@@ -74,6 +75,18 @@ public class TestVehiculo {
 		vehiculo.setModelo(mod);
 		assertEquals(mod, vehiculo.getModelo());
 	}
+	
+	@Test
+	public void testGetUrl() {
+		assertEquals(url, vehiculo.getUrl());
+	}
+
+	@Test
+	public void testSetUrl() {
+		String url2 = "img/logos/citroen.png";
+		vehiculo.setUrl(url2);
+		assertEquals(url2, vehiculo.getUrl());
+	}
 
 	@Test
 	public void testGetId() {
@@ -103,7 +116,7 @@ public class TestVehiculo {
 
 	@Test
 	public void testToString() {
-		String esperado = "Vehiculo [tipo=" + tipo + ", marca=" + marca + ", modelo=" + modelo + ", id=" + id + ", precio=" + precio + "]";
+		String esperado = "Vehiculo [tipo=" + tipo + ", marca=" + marca + ", modelo=" + modelo + ", id=" + id + ", precio=" + precio + ",url" + url + "]";
 		assertEquals(esperado,vehiculo.toString());
 	}
 
