@@ -146,13 +146,15 @@ public class VentanaRepuestos extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (tablaRepuestos.getSelectedRow() >= 0) {
-					for (Repuestos r: vr.usuarioLogged.getListaRepuestos()) {
-						if (r.getId() == repuestos.get(tablaRepuestos.getSelectedRow()).getId()) {
-							String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-							cc.guardarDBVenta("Usuario.db", vr.usuarioLogged, repuestos.get(tablaRepuestos.getSelectedRow()).getId(), -repuestos.get(tablaRepuestos.getSelectedRow()).getVenta(), date);						
-							vr.usuarioLogged.setDinero(vr.usuarioLogged.getDinero()+repuestos.get(tablaRepuestos.getSelectedRow()).getCompra());
-							vr.usuarioLogged.getListaRepuestos().remove(r);
-							
+					for (Repuestos r: repuestos) {
+						for (int i = 0; i< cc.sacarIdsUsuario("Usuario.db", vr.usuarioLogged).size(); i++) {
+							if (cc.sacarIdsUsuario("Usuario.db", vr.usuarioLogged).get(i) == r.getId()) {
+									if (r.getId() == repuestos.get(tablaRepuestos.getSelectedRow()).getId()) {
+										String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+										cc.guardarDBVenta("Usuario.db", vr.usuarioLogged, repuestos.get(tablaRepuestos.getSelectedRow()).getId(), -repuestos.get(tablaRepuestos.getSelectedRow()).getVenta(), date);						
+										vr.usuarioLogged.setDinero(vr.usuarioLogged.getDinero()+repuestos.get(tablaRepuestos.getSelectedRow()).getCompra());
+								}
+							}
 						}
 					}
 				}

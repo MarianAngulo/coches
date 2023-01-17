@@ -141,34 +141,32 @@ public class VentanaInventario extends JFrame {
 	
 	private void initTablaVehiculos() {
 		Vector<String> cabeceras = new Vector<String>(Arrays.asList( "ID", "TIPO", "MARCA", "MODELO","PRECIO", "IMAGEN"));
-		modelo = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceras);
-		tabla = new JTable(modelo);
-		tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		this.modelo = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceras);
+		this.tabla = new JTable(this.modelo);
+		this.tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 	
 	
 	private void initTablaRepuestos() {
 
 		Vector<String> cabeceraComics = new Vector<String>(Arrays.asList("ID", "Tipo", "Compra", "Venta"));
-		this.modeloDatosRepuestos = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceraComics);
-		this.tabla = new JTable(this.modeloDatosRepuestos);
+		this.modelo = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceraComics);
+		this.tabla = new JTable(this.modelo);
 		this.tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 	}
 	
 	private void cargarVehiculos() {
-		modelo.setRowCount(0);
-		
+
 		for (Vehiculo v : listvehiculosUsu) {
 			this.modelo.addRow( new Object[] {v.getId(), v.getTipo(), v.getMarca(), v.getModelo(), v.getPrecio(), v.getUrl()} );
 		}		
 	}
 	
 	private void cargarRepuestos() {
-		modeloDatosRepuestos.setRowCount(0);
-		
+
 		for (Repuestos c : repuestosUsu) {
-			this.modeloDatosRepuestos.addRow( new Object[] {c.getId(), c.getTipo(), c.getCompra(), c.getVenta()} );
+			this.modelo.addRow( new Object[] {c.getId(), c.getTipo(), c.getCompra(), c.getVenta()} );
 		}		
 	}
 	
@@ -182,27 +180,4 @@ public class VentanaInventario extends JFrame {
 	}
 	
 	
-	
-	/*
-	private void visualizarVehiculos() {//Estructura de como se tendria que visualizar sin tener funcionalidad Base de datos
-		Vector<String> cabeceras = new Vector<String>( Arrays.asList( "Id", "Tipo", "Modelo", "Precio" ) );
-		modelo = new DefaultTableModel( 
-			new Vector<Vector<Object>>(),
-			cabeceras 
-		);
-		//cargarVehiculos(); Faltaria esta funcionalidad
-		for (Vehiculo v : listvehiculos) {
-			modelo.addRow( new Object[] { v.getId(), v.getTipo(), v.getModelo(), v.getPrecio(),  } );
-		}
-		tabla.setModel( modelo );
-		
-		tabla.getColumnModel().getColumn(0).setMinWidth(40);
-		tabla.getColumnModel().getColumn(0).setMaxWidth(40);
-		tabla.getColumnModel().getColumn(1).setMinWidth(80);
-		tabla.getColumnModel().getColumn(1).setMaxWidth(80);
-		tabla.getColumnModel().getColumn(3).setMinWidth(60);
-		tabla.getColumnModel().getColumn(3).setMaxWidth(60);
-	}
-	
-	*/
 }
