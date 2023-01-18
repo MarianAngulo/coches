@@ -37,7 +37,7 @@ import clases.Vehiculo;
 public class VentanaInventario extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
-	private static List<Vehiculo> listvehiculosUsu;
+	public static List<Vehiculo> listvehiculosUsu;
 	private static List<Repuestos> repuestosUsu;
 	private static VentanaInventario ventVe = new VentanaInventario();
 	private JTable tablaRepuestos;
@@ -170,7 +170,7 @@ public class VentanaInventario extends JFrame {
 		}		
 	}
 	
-	public static void main(String args[]) {
+	/*public static void main(String args[]) {
 		ventVe.setTitle("inventario");
 		ventVe.setSize(700, 700);
 		ventVe.setLocation(550, 150);
@@ -178,6 +178,6 @@ public class VentanaInventario extends JFrame {
 		ventVe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ventVe.setResizable(false);
 	}
-	
+	*/
 	
 }

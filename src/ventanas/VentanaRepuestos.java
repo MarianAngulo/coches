@@ -54,7 +54,7 @@ public class VentanaRepuestos extends JFrame {
 	public VentanaRepuestos() {
 		//BD.leerCSVRepuestos("repuestos");
 		VentanaRegistro vr = new VentanaRegistro();
-		//ClaseContenedora cc = new ClaseContenedora();
+		ClaseContenedora cc = new ClaseContenedora();
 		
 		
 		
@@ -123,7 +123,7 @@ public class VentanaRepuestos extends JFrame {
 			}
 		});**/
 		
-		/**comprar.addActionListener(new ActionListener() {
+		comprar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -140,7 +140,7 @@ public class VentanaRepuestos extends JFrame {
 				
 			}
 		});
-		
+		/**
 		vender.addActionListener(new ActionListener() {
 			
 			@Override

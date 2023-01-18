@@ -46,13 +46,13 @@ public class VentanaVehiculos extends JFrame {
 	private JTable tabla;
 	private JToolBar botonesSup;
 	private JToolBar botonesInf;
-	
+	VentanaRegistro vr = new VentanaRegistro();
+	VentanaVehiculos vv = new VentanaVehiculos();
+	ClaseContenedora cc = new ClaseContenedora();
 	
 	
 	public VentanaVehiculos() {
 		
-		VentanaRegistro vr = new VentanaRegistro();
-		ClaseContenedora cc = new ClaseContenedora();
 		
 		listvehiculos= new ArrayList<Vehiculo>();
 		
@@ -70,7 +70,6 @@ public class VentanaVehiculos extends JFrame {
 		getContentPane().add(scrollPane);
 		botonesSup = new JToolBar();
 		botonesInf = new JToolBar();
-	
 		
 		JPanel panelSup = new JPanel();
 		panelSup.setLayout(new BorderLayout());
@@ -183,7 +182,7 @@ public class VentanaVehiculos extends JFrame {
 			 for(Vehiculo v: listvehiculos) {
 				 label.setIcon(new ImageIcon(v.getUrl()));
 			 }
-							
+			 
 			
 			return label;
 		}

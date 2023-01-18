@@ -54,7 +54,7 @@ public class VentanaPrincipal extends JFrame{
 		JButton bInventario = new JButton("Inventario");
 		barra.add(bInventario);
 		
-		/**bInventario.addActionListener(new ActionListener() {
+		bInventario.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -67,7 +67,7 @@ public class VentanaPrincipal extends JFrame{
 			}
 			
 			
-		});**/
+		});
 		
 		
 		panelSup.add(barra, BorderLayout.NORTH);
