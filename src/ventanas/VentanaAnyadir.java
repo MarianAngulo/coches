@@ -48,7 +48,7 @@ public class VentanaAnyadir extends JFrame {
 		añadirRep.setBounds(150, 340, 200, 37);
 		panelCentral.add(añadirRep);
 
-		JLabel lblID = new JLabel("ID");
+		JLabel lblID = new JLabel("ID(entero)");
 		lblID.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblID.setBounds(100, 50, 96, 14);
 		panelCentral.add(lblID);
@@ -75,7 +75,7 @@ public class VentanaAnyadir extends JFrame {
 		textNombre.addItem("CAJA_DE_CAMBIOS");
 		textNombre.addItem("PARABRISAS");
 
-		JLabel lblcompra = new JLabel("compra");
+		JLabel lblcompra = new JLabel("compra(entero)");
 		lblcompra.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblcompra.setBounds(100, 150, 96, 14);
 		panelCentral.add(lblcompra);
@@ -85,7 +85,7 @@ public class VentanaAnyadir extends JFrame {
 		textCompra.setBounds(250, 150, 96, 20);
 		panelCentral.add(textCompra);
 
-		JLabel lblVenta = new JLabel("Venta");
+		JLabel lblVenta = new JLabel("Venta(entero)");
 		lblVenta.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblVenta.setBounds(100, 200, 96, 14);
 		panelCentral.add(lblVenta);
@@ -95,7 +95,7 @@ public class VentanaAnyadir extends JFrame {
 		textVenta.setBounds(250, 200, 96, 20);
 		panelCentral.add(textVenta);
 
-		JLabel lblURL = new JLabel("URL imagen");
+		JLabel lblURL = new JLabel("URL imagen(string)");
 		lblURL.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblURL.setBounds(100, 250, 96, 14);
 		panelCentral.add(lblURL);
@@ -130,23 +130,12 @@ public class VentanaAnyadir extends JFrame {
 				int venta = Integer.parseInt(textVenta.getText());
 				String url = textURL.getText();
 
-				/**
-				 * Repuestos repuestos = new Repuestos(id,tipo,compra,venta, url);
-				 * 
-				 * ArrayList<Repuestos> value = new ArrayList<Repuestos>();
-				 * 
-				 * value.add(repuestos); System.out.println(value);
-				 **/
-
-				// File csvFile = new File("data/repuestos.csv");
+				
 
 				FileWriter fstream;
 				try {
 					fstream = new FileWriter("data/repuestos.csv", true);
 					PrintWriter wr = new PrintWriter(fstream);
-					/**
-					 * for(Repuestos r : value) { wr.println(value.toString()); }
-					 **/
 					wr.println(tipo + "," + id + "," + compra + "," + venta + "," + url);
 					wr.close();
 				} catch (IOException e1) {
