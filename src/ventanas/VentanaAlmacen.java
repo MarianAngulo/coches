@@ -88,10 +88,8 @@ public class VentanaAlmacen extends JFrame {
 		getContentPane().add( panelbarra, BorderLayout.SOUTH );
 		
 		JButton btnVolver = new JButton("Volver");
-		JButton btnBorrar = new JButton("Borrar");
 		JButton btnAnyadir = new JButton("Anyadir");
 		barra.add(btnVolver);
-		barra.add(btnBorrar);
 		barra.add(btnAnyadir);
 		
 		panelSup2.add(scrollPane,BorderLayout.CENTER);
@@ -104,6 +102,19 @@ public class VentanaAlmacen extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				VentanaAdmin va = new VentanaAdmin();
+				va.setSize(600, 600);
+				va.setLocation(550, 150);
+				va.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				va.setVisible(true);
+				dispose();
+			}
+		});
+		
+		btnAnyadir.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaAnyadir va = new VentanaAnyadir();
 				va.setSize(600, 600);
 				va.setLocation(550, 150);
 				va.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
