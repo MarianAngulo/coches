@@ -42,13 +42,13 @@ public class VentanaVehiculos extends JFrame {
 	private static final long serialVersionUID = 1L;
 	static List<Vehiculo> listvehiculos;
 	private static VentanaVehiculos ventVe = new VentanaVehiculos();
+	private static VentanaRegistro vr = new VentanaRegistro();
+	private static ClaseContenedora cc = new ClaseContenedora();
 	private DefaultTableModel modelo;
 	private JTable tabla;
 	private JToolBar botonesSup;
 	private JToolBar botonesInf;
-	VentanaRegistro vr = new VentanaRegistro();
-	VentanaVehiculos vv = new VentanaVehiculos();
-	ClaseContenedora cc = new ClaseContenedora();
+
 	
 	
 	public VentanaVehiculos() {
