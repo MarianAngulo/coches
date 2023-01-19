@@ -6,6 +6,8 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -30,6 +32,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import clases.MarcaVehiculo;
 import clases.Repuestos;
@@ -48,6 +51,10 @@ public class VentanaVehiculos extends JFrame {
 	private JTable tabla;
 	private JToolBar botonesSup;
 	private JToolBar botonesInf;
+	
+	int mouseRow = -1;
+	int mouseCol = -1;
+	
 
 	
 	
@@ -82,6 +89,40 @@ public class VentanaVehiculos extends JFrame {
 		panelSup.add(scrollPane,BorderLayout.CENTER);
 		panelInf.add(botonesInf,BorderLayout.SOUTH);
 		panelSup.add(botonesSup,BorderLayout.NORTH);
+		
+		TableCellRenderer renderMouseOver = (table, value, isSelected, hasFocus, row, column) -> {
+			JLabel label = new JLabel(value.toString());
+			
+			if (row == this.mouseRow && column == this.mouseCol) {
+				label.setBackground(Color.YELLOW);
+			} else {
+				label.setBackground(table.getBackground());
+			}
+			
+			if (isSelected) {
+				label.setBackground(table.getSelectionBackground());
+				label.setForeground(table.getSelectionForeground());
+			}
+			
+			label.setOpaque(true);
+				
+			return label;
+		};
+		
+		this.tabla.setDefaultRenderer(Object.class, renderMouseOver);
+		
+		
+		this.tabla.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				mouseRow = tabla.rowAtPoint(e.getPoint());
+				mouseCol = tabla.columnAtPoint(e.getPoint());
+
+				if (mouseRow > -1 && mouseCol >-1) {
+					tabla.repaint();
+				}
+			}
+		});
 		
 		JButton botoncomp = new JButton("Comprar");
 		botonesSup.add(botoncomp);

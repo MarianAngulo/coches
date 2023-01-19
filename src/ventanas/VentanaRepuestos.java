@@ -1,11 +1,15 @@
 package ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -34,6 +38,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import bd.BD;
 import clases.Repuestos;
@@ -49,7 +54,8 @@ public class VentanaRepuestos extends JFrame {
 	private JTable tablaRepuestos;
 	private DefaultTableModel modeloDatosRepuestos;
 	//private JLabel lFoto;
-
+	int mouseRow = -1;
+	int mouseCol = -1;
 	
 	
 	public VentanaRepuestos() {
@@ -123,6 +129,40 @@ public class VentanaRepuestos extends JFrame {
 				
 			}
 		});**/
+		
+		TableCellRenderer renderMouseOver = (table, value, isSelected, hasFocus, row, column) -> {
+			JLabel label = new JLabel(value.toString());
+			
+			if (row == this.mouseRow && column == this.mouseCol) {
+				label.setBackground(Color.YELLOW);
+			} else {
+				label.setBackground(table.getBackground());
+			}
+			
+			if (isSelected) {
+				label.setBackground(table.getSelectionBackground());
+				label.setForeground(table.getSelectionForeground());
+			}
+			
+			label.setOpaque(true);
+				
+			return label;
+		};
+		
+		this.tablaRepuestos.setDefaultRenderer(Object.class, renderMouseOver);
+		
+		
+		this.tablaRepuestos.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				mouseRow = tablaRepuestos.rowAtPoint(e.getPoint());
+				mouseCol = tablaRepuestos.columnAtPoint(e.getPoint());
+
+				if (mouseRow > -1 && mouseCol >-1) {
+					tablaRepuestos.repaint();
+				}
+			}
+		});
 		
 		comprar.addActionListener(new ActionListener() {
 			
