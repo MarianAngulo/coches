@@ -114,6 +114,19 @@ public class VentanaVehiculos extends JFrame {
 			}
 		});	
 		
+		JButton btnPosiblesCompras = new JButton("Posibles compras");
+		botonesInf.add(btnPosiblesCompras);
+		btnPosiblesCompras.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String resp = JOptionPane.showInputDialog(null, "¿Cuanto dinero quieres gastarte?:");
+					if (resp==null) return;
+					int dinero = Integer.parseInt( resp );
+					calcularComprasPosibles( dinero );
+				} catch (NumberFormatException e2) { }
+			}
+		});	
 	}
 	
 	
@@ -161,6 +174,24 @@ public class VentanaVehiculos extends JFrame {
 		}catch (IOException e){
 			e.printStackTrace();
 		} 
+	}
+	
+	private void calcularComprasPosibles(int disponible) {
+		ArrayList<Vehiculo> lVehiculos = new ArrayList<>();
+		calcularComprasPosibles(listvehiculos, disponible, lVehiculos);
+	}
+	private void calcularComprasPosibles(List<Vehiculo> listvehiculos2, int restante, ArrayList<Vehiculo> lComprado) {
+		if (restante < 0) return;
+		else if (restante < 50) {
+			System.out.println( "Posible compra (sobran " + String.format("%d",restante) + " euros): " + lComprado);
+		}
+		else {
+			for (Vehiculo v : listvehiculos2) {
+				lComprado.add(v);
+				calcularComprasPosibles(listvehiculos2, restante - v.getPrecio(), lComprado);
+				lComprado.remove(lComprado.size()-1);
+			}
+		}
 	}
 	
 	public static void main(String args[]) {
