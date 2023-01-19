@@ -256,18 +256,18 @@ public class VentanaRepuestos extends JFrame {
 	}
 	
 	private void calcularComprasPosibles(int disponible) {
-		ArrayList<Repuestos> lVehiculos = new ArrayList<>();
+		ArrayList<String> lVehiculos = new ArrayList<>();
 		calcularComprasPosibles(repuestos, disponible, lVehiculos);
 	}
-	private void calcularComprasPosibles(List<Repuestos> list, int restante, ArrayList<Repuestos> lComprado) {
+	private void calcularComprasPosibles(List<Repuestos> list, int restante, ArrayList<String> lComprado) {
 		if (restante < 0) return;
 		else if (restante < 50) {
 			System.out.println( "Posible compra (sobran " + String.format("%d",restante) + " euros): " + lComprado);
 		}
 		else {
 			for (Repuestos r : list) {
-				lComprado.add(r);
-				calcularComprasPosibles(list, restante - r.getCompra(), lComprado);
+				lComprado.add(r.getTipo().toString() + " ID == " + r.getId());
+				calcularComprasPosibles(list, restante - r.getVenta(), lComprado);
 				lComprado.remove(lComprado.size()-1);
 			}
 		}
