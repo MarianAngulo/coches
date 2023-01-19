@@ -43,6 +43,9 @@ public class VentanaRegistro extends JFrame {
 
 	public VentanaRegistro() {
 		ClaseContenedora cc = new ClaseContenedora();
+		setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
+		setTitle("Ventana para anyadir nuevo usuario");
+		setSize(1000, 500);
 		panelcent = new JPanel();
 		panelcent.setLayout(new GridLayout(1, 2));
 		panelcent2 = new JPanel();
@@ -156,7 +159,7 @@ public class VentanaRegistro extends JFrame {
 		});
 		getContentPane().add(panelcent);
 	}
-
+/*
 	public static void main(String args[]) {
 		//BD.leerCSVRepuestos("repuestos");
 		//BD.leerCSVVehiculos("vehiculos");
@@ -166,6 +169,6 @@ public class VentanaRegistro extends JFrame {
 		vent.setVisible(true);
 		vent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		vent.setResizable(false);
-	}
+	}*/
 
 }
